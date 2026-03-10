@@ -6,6 +6,8 @@ An interactive visualization of 911 U.S. occupations plotted by their **automati
 
 ![Screenshot](https://img.shields.io/badge/occupations-911-blue) ![Screenshot](https://img.shields.io/badge/job_families-13-green)
 
+![Screenshot of the visualization](screenshot.png)
+
 ## What the graph shows
 
 Each dot represents a U.S. occupation, positioned on two axes:
