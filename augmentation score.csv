@@ -1,0 +1,912 @@
+﻿augmentation,job_family,occupation_title,automation
+0.09,Office support,Correspondence clerks,0.86
+0.28,"Arts, sports and media",Interpreters and translators,0.8
+0.06,Office support,"Court, municipal, and license clerks",0.76
+0.12,Health care,Medical transcriptionists,0.74
+0.3,Sales,Telemarketers,0.73
+0.26,Office support,Order clerks,0.72
+0.32,Office support,Word processors and typists,0.72
+0,"Life, physical, and social science",Climate change policy analysts,0.72
+0,Business and finance,Sustainability specialists,0.71
+0.1,Office support,Loan interviewers and clerks,0.7
+0.24,"Arts, sports and media",Writers and authors,0.7
+0.09,Office support,Payroll and timekeeping clerks,0.7
+0.13,Office support,Bill and account collectors,0.7
+0.12,Computer and math,Software quality assurance analysts and testers,0.7
+0.26,Business and finance,Project management specialists,0.7
+0.17,Business and finance,Credit counselors,0.69
+0.33,"Arts, sports and media","Poets, lyricists and creative writers",0.69
+0.19,Office support,"Human resources assistants, except payroll and timekeeping",0.68
+0.19,Office support,"Bookkeeping, accounting, and auditing clerks",0.68
+0.14,Office support,Insurance claims and policy processing clerks,0.68
+0.29,Office support,Executive secretaries and executive administrative assistants,0.68
+0.33,Educational instruction,Tutors,0.67
+0.32,Sales,"Sales representatives of services, except advertising, insurance, financial services, and travel",0.67
+0.08,Computer and math,Clinical data managers,0.67
+0.38,Office support,Proofreaders and copy markers,0.66
+0.23,Services and other,Health education specialists,0.66
+0,Computer and math,Data warehousing specialists,0.66
+0.31,Office support,Medical secretaries and administrative assistants,0.66
+0.17,Business and finance,Training and development specialists,0.66
+0.18,Office support,Procurement clerks,0.66
+0.19,Computer and math,Web developers,0.65
+0.13,"Life, physical, and social science",Physicists,0.65
+0.07,Office support,Freight forwarders,0.65
+0.28,Office support,"Interviewers, except eligibility and loan",0.65
+0.44,Computer and math,Computer programmers,0.64
+0,Computer and math,Mathematicians,0.64
+0.43,Office support,Receptionists and information clerks,0.64
+0,Computer and math,Business intelligence analysts,0.64
+0.18,Computer and math,Information technology project managers,0.64
+0.13,Health care,Preventive medicine physicians,0.63
+0,"Life, physical, and social science",Environmental economists,0.63
+0.24,Sales,Advertising sales agents,0.63
+0.3,Office support,"Credit authorizers, checkers, and clerks",0.63
+0.15,Management,Training and development managers,0.63
+0.07,Computer and math,Biostatisticians,0.62
+0.06,Computer and math,Web and digital interface designers,0.62
+0.16,Business and finance,Tax preparers,0.62
+0.31,Sales,"Sales representatives, wholesale and manufacturing, technical and scientific products",0.62
+0.32,Office support,"Secretaries and administrative assistants, except legal, medical, and executive",0.62
+0.15,Office support,"Dispatchers, except police, fire, and ambulance",0.62
+0.05,Business and finance,Regulatory affairs specialists,0.62
+0.1,Computer and math,Web administrators,0.61
+0.3,Educational instruction,Instructional coordinators,0.61
+0.17,Computer and math,Penetration testers,0.61
+0.29,Management,Clinical research coordinators,0.61
+0.36,"Arts, sports and media",Public relations specialists,0.61
+0.3,Office support,"Production, planning, and expediting clerks",0.6
+0.08,Management,Regulatory affairs managers,0.6
+0.41,Office support,Statistical assistants,0.6
+0.45,Office support,"Office clerks, general",0.6
+0.1,Computer and math,Database architects,0.6
+0.13,Management,Wind energy development managers,0.6
+0,Business and finance,Business continuity planners,0.6
+0.2,Legal,"Title examiners, abstractors, and searchers",0.59
+0.18,"Life, physical, and social science",Historians,0.59
+0.22,Health care,Health information technologists and medical registrars,0.59
+0.29,Office support,"Eligibility interviewers, government programs",0.59
+0.34,Sales,Solar sales representatives and assessors,0.59
+0.16,Computer and math,Document management specialists,0.59
+0.11,Computer and math,Blockchain engineers,0.59
+0.4,Office support,"Shipping, receiving, and inventory clerks",0.59
+0.32,Office support,Brokerage clerks,0.59
+0.24,Business and finance,Credit analysts,0.58
+0.3,Engineering,Environmental engineers,0.58
+0.26,Business and finance,Human resources specialists,0.58
+0.26,Sales,Sales engineers,0.58
+0.12,Management,Chief sustainability officers,0.58
+0.23,Management,Spa managers,0.58
+0.21,Business and finance,Loan officers,0.58
+0.25,Business and finance,Fundraisers,0.58
+0,Computer and math,Statisticians,0.57
+0,Computer and math,Database administrators,0.57
+0,Business and finance,Financial risk specialists,0.57
+0.2,"Life, physical, and social science",Survey researchers,0.57
+0.19,Computer and math,Bioinformatics technicians,0.57
+0.14,Office support,Customer service representatives,0.57
+0.46,"Arts, sports and media",Court reporters and simultaneous captioners,0.57
+0.24,Computer and math,Computer systems analysts,0.57
+0.46,Sales,Counter and rental clerks,0.57
+0.05,Business and finance,Logistics analysts,0.57
+0,Computer and math,Information security engineers,0.57
+0.42,Office support,Reservation and transportation ticket agents and travel clerks,0.57
+0,Business and finance,Insurance underwriters,0.57
+0.38,Sales,Travel agents,0.56
+0.11,Health care,Medical records specialists,0.56
+0.38,Management,Fundraising managers,0.56
+0.19,Sales,"Securities, commodities, and financial services sales agents",0.56
+0.12,Computer and math,Data scientists,0.56
+0.12,"Life, physical, and social science",Political scientists,0.56
+0.16,Engineering,Bioengineers and biomedical engineers,0.56
+0.12,Management,Compliance managers,0.56
+0.16,"Life, physical, and social science",Economists,0.56
+0.04,Business and finance,Search marketing strategists,0.56
+0.38,Management,Public relations managers,0.55
+0.37,"Life, physical, and social science",Social science research assistants,0.55
+0.22,Management,Purchasing managers,0.55
+0.26,Computer and math,Digital forensics analysts,0.55
+0.12,Business and finance,Budget analysts,0.55
+0.39,Office support,First-line supervisors of office and administrative support workers,0.55
+0.21,Health care,Genetic counselors,0.55
+0.31,Business and finance,Labor relations specialists,0.55
+0.37,Business and finance,"Meeting, convention, and event planners",0.54
+0.34,Business and finance,Online merchants,0.54
+0.41,"Arts, sports and media","News analysts, reporters, and journalists",0.54
+0.19,"Life, physical, and social science",Epidemiologists,0.54
+0.39,"Production, construction and transportation",Recycling coordinators,0.54
+0.25,Business and finance,Personal financial advisors,0.54
+0.29,Business and finance,Customs brokers,0.54
+0.26,"Life, physical, and social science",Atmospheric and space scientists,0.54
+0.16,"Life, physical, and social science",Transportation planners,0.53
+0.42,Office support,Legal secretaries and administrative assistants,0.53
+0.45,Legal,Judicial law clerks,0.53
+0.17,"Life, physical, and social science",Bioinformatics scientists,0.53
+0.21,Management,Brownfield redevelopment specialists and site managers,0.53
+0.41,Educational instruction,Librarians and media collections specialists,0.53
+0.4,"Arts, sports and media",Editors,0.53
+0.21,Engineering,Manufacturing engineers,0.53
+0.46,"Arts, sports and media",Broadcast announcers and radio disc jockeys,0.53
+0.32,Management,Wind energy operations managers,0.53
+0.29,Engineering,Validation engineers,0.53
+0.45,Educational instruction,"Criminal justice and law enforcement teachers, postsecondary",0.53
+0.09,Computer and math,Health informatics specialists,0.53
+0.04,"Life, physical, and social science",Industrial ecologists,0.53
+0.24,Business and finance,Market research analysts and marketing specialists,0.52
+0.25,Engineering,"Energy engineers, except wind and solar",0.52
+0.41,Services and other,Community health workers,0.52
+0.15,"Life, physical, and social science",Animal scientists,0.52
+0.25,Business and finance,Logisticians,0.52
+0.39,Health care,Speech-language pathology assistants,0.52
+0.43,Office support,Telephone operators,0.52
+0.29,Computer and math,Computer systems engineers/architects,0.52
+0.31,Business and finance,"Purchasing agents, except wholesale, retail, and farm products",0.52
+0.24,Computer and math,Operations research analysts,0.52
+0.46,Educational instruction,"Forestry and conservation science teachers, postsecondary",0.51
+0.4,"Life, physical, and social science",Industrial-organizational psychologists,0.51
+0.3,Business and finance,Accountants and auditors,0.51
+0.41,Services and other,Concierges,0.51
+0.31,"Arts, sports and media",Technical writers,0.51
+0.42,Services and other,"Directors, religious activities and education",0.51
+0.38,Business and finance,Equal opportunity representatives and officers,0.51
+0.16,"Life, physical, and social science","Environmental scientists and specialists, including health",0.5
+0.34,Computer and math,Telecommunications engineering specialists,0.5
+0.48,Business and finance,Compliance officers,0.5
+0.32,Business and finance,"Tax examiners and collectors, and revenue agents",0.5
+0.18,Business and finance,Financial quantitative analysts,0.5
+0.47,Educational instruction,"Library science teachers, postsecondary",0.5
+0.2,Computer and math,Actuaries,0.5
+0.25,Business and finance,Cost estimators,0.5
+0.27,Computer and math,Information security analysts,0.5
+0.46,Management,"Entertainment and recreation managers, except gambling",0.5
+0.39,Management,Gambling managers,0.5
+0.45,Health care,Nurse midwives,0.5
+0.4,Business and finance,Management analysts,0.5
+0.31,Business and finance,Environmental compliance inspectors,0.5
+0.47,Educational instruction,"English language and literature teachers, postsecondary",0.49
+0.23,Services and other,Intelligence analysts,0.49
+0.34,Business and finance,"Compensation, benefits, and job analysis specialists",0.49
+0.45,Educational instruction,"Philosophy and religion teachers, postsecondary",0.49
+0.49,Computer and math,Computer user support specialists,0.49
+0.33,Computer and math,Computer network architects,0.49
+0.17,Management,Supply chain managers,0.49
+0.44,Health care,Dietetic technicians,0.49
+0.39,Management,Natural sciences managers,0.49
+0.24,Engineering,Mechatronics engineers,0.49
+0.39,Health care,Dietitians and nutritionists,0.49
+0.29,Management,Industrial production managers,0.49
+0.37,Health care,Patient representatives,0.49
+0.47,Office support,File clerks,0.49
+0.12,Business and finance,Logistics engineers,0.49
+0.24,Engineering,Aerospace engineers,0.49
+0.42,Sales,"Sales representatives, wholesale and manufacturing, except technical and scientific products",0.49
+0.42,Services and other,Marriage and family therapists,0.48
+0.38,Sales,Insurance sales agents,0.48
+0.44,Educational instruction,"Economics teachers, postsecondary",0.48
+0.42,Business and finance,"Fraud examiners, investigators and analysts",0.48
+0.35,Business and finance,"Claims adjusters, examiners, and investigators",0.48
+0.41,Office support,Billing and posting clerks,0.48
+0.42,Business and finance,Security management specialists,0.48
+0.37,Computer and math,Video game designers,0.48
+0.37,Engineering,"Electronics engineers, except computer",0.48
+0.47,Educational instruction,"Atmospheric, earth, marine, and space sciences teachers, postsecondary",0.48
+0.46,Educational instruction,"Recreation and fitness studies teachers, postsecondary",0.48
+0.48,Office support,New accounts clerks,0.48
+0.29,Engineering,Nanosystems engineers,0.48
+0.5,Office support,"Switchboard operators, including answering service",0.48
+0.29,"Life, physical, and social science",Environmental restoration planners,0.48
+0.22,Engineering,Automotive engineers,0.48
+0.26,Management,Biofuels/biodiesel technology and product development managers,0.48
+0.32,Computer and math,Network and computer systems administrators,0.47
+0.45,Legal,Paralegals and legal assistants,0.47
+0.39,Management,Emergency management directors,0.47
+0.46,Educational instruction,"Architecture teachers, postsecondary",0.47
+0.33,"Life, physical, and social science",Geneticists,0.47
+0.24,Educational instruction,Archivists,0.47
+0.3,Management,Compensation and benefits managers,0.47
+0.46,Educational instruction,"Career/technical education teachers, postsecondary",0.47
+0.44,Office support,Public safety telecommunicators,0.47
+0.29,Health care,Nurse practitioners,0.47
+0.4,Health care,Clinical nurse specialists,0.47
+0.31,Management,"Transportation, storage, and distribution managers",0.47
+0.41,"Life, physical, and social science",Quality control analysts,0.47
+0.43,Sales,Real estate sales agents,0.47
+0.48,Educational instruction,"Family and consumer sciences teachers, postsecondary",0.46
+0.48,Educational instruction,"Environmental science teachers, postsecondary",0.46
+0.38,Management,Security managers,0.46
+0.38,Health care,Speech-language pathologists,0.46
+0.38,Engineering,Materials engineers,0.46
+0.47,Management,Postmasters and mail superintendents,0.46
+0.39,Engineering,Transportation engineers,0.46
+0.48,Management,Fitness and wellness coordinators,0.46
+0.38,Engineering,Robotics engineers,0.46
+0.43,Office support,Data entry keyers,0.46
+0.41,"Life, physical, and social science","Medical scientists, except epidemiologists",0.46
+0.4,Engineering,"Health and safety engineers, except mining safety engineers and inspectors",0.46
+0.36,Engineering,Fire-prevention and protection engineers,0.46
+0.42,Management,Quality control systems managers,0.46
+0.44,"Life, physical, and social science",Biologists,0.46
+0.32,Engineering,Mechanical engineers,0.45
+0.42,Educational instruction,Library technicians,0.45
+0.5,Services and other,First-line supervisors of police and detectives,0.45
+0.49,Educational instruction,"Foreign language and literature teachers, postsecondary",0.45
+0.47,Educational instruction,"Law teachers, postsecondary",0.45
+0.5,Sales,Demonstrators and product promoters,0.45
+0.48,Educational instruction,"Communications teachers, postsecondary",0.45
+0.24,Management,Investment fund managers,0.45
+0.3,Management,Water resource specialists,0.45
+0.45,Management,Geothermal production managers,0.45
+0.49,Services and other,"First-line supervisors of entertainment and recreation workers, except gambling services",0.45
+0.42,Educational instruction,Farm and home management educators,0.45
+0.36,Management,Financial managers,0.45
+0.41,Engineering,Radio frequency identification device specialists,0.45
+0.43,Legal,Lawyers,0.45
+0.49,Educational instruction,"Adult basic education, adult secondary education, and english as a second language instructors",0.45
+0.33,Engineering,Nuclear engineers,0.45
+0.36,Management,Treasurers and controllers,0.45
+0.5,Educational instruction,"Chemistry teachers, postsecondary",0.45
+0.28,"Life, physical, and social science",Soil and plant scientists,0.44
+0.38,"Life, physical, and social science",Urban and regional planners,0.44
+0.5,Educational instruction,"Education teachers, postsecondary",0.44
+0.49,Educational instruction,"Anthropology and archeology teachers, postsecondary",0.44
+0.44,"Life, physical, and social science",Clinical and counseling psychologists,0.44
+0.5,Educational instruction,"History teachers, postsecondary",0.44
+0.5,Services and other,Travel guides,0.44
+0.38,Engineering,Industrial engineers,0.44
+0.37,Engineering,Geodetic surveyors,0.44
+0.38,"Life, physical, and social science",Hydrologic technicians,0.44
+0.48,Educational instruction,"Computer science teachers, postsecondary",0.44
+0.45,Health care,Hospitalists,0.44
+0.4,Engineering,Photonics engineers,0.44
+0.36,Business and finance,Financial and investment analysts,0.44
+0.37,Management,Computer and information systems managers,0.44
+0.4,"Life, physical, and social science",Molecular and cellular biologists,0.44
+0.48,Educational instruction,"Teaching assistants, postsecondary",0.43
+0.41,"Life, physical, and social science",Neuropsychologists,0.43
+0.43,Management,"Education administrators, postsecondary",0.43
+0.41,Business and finance,Appraisers of personal and business property,0.43
+0.5,Services and other,Clergy,0.43
+0.5,Educational instruction,"Engineering teachers, postsecondary",0.43
+0.44,Management,Advertising and promotions managers,0.43
+0.41,"Production, construction and transportation",Energy auditors,0.43
+0.5,Services and other,First-line supervisors of housekeeping and janitorial workers,0.43
+0.48,"Production, construction and transportation",First-line supervisors of production and operating workers,0.43
+0.48,Services and other,"Educational, guidance, and career counselors and advisors",0.43
+0.46,Legal,"Administrative law judges, adjudicators, and hearing officers",0.43
+0.45,Educational instruction,Curators,0.43
+0.46,Computer and math,Computer network support specialists,0.43
+0.49,Educational instruction,"Agricultural sciences teachers, postsecondary",0.43
+0.3,Engineering,Fuel cell engineers,0.43
+0.5,Management,Lodging managers,0.43
+0.49,Services and other,Social and human service assistants,0.43
+0.37,Management,Human resources managers,0.43
+0.5,Educational instruction,"Area, ethnic, and cultural studies teachers, postsecondary",0.42
+0.5,Educational instruction,"Geography teachers, postsecondary",0.42
+0.42,Engineering,Microsystems engineers,0.42
+0.42,Engineering,Solar energy systems engineers,0.42
+0.5,Educational instruction,"Health specialties teachers, postsecondary",0.42
+0.5,"Production, construction and transportation",First-line supervisors of passenger attendants,0.42
+0.5,Educational instruction,"Social work teachers, postsecondary",0.42
+0.5,Health care,Pharmacy aides,0.42
+0.5,Educational instruction,"Sociology teachers, postsecondary",0.42
+0.43,Computer and math,Software developers,0.42
+0.38,Business and finance,"Buyers and purchasing agents, farm products",0.42
+0.47,"Life, physical, and social science",Park naturalists,0.42
+0.49,Management,"Farmers, ranchers, and other agricultural managers",0.42
+0.49,"Production, construction and transportation",Computer numerically controlled tool programmers,0.42
+0.45,Engineering,Computer hardware engineers,0.42
+0.47,Management,"Education and childcare administrators, preschool and daycare",0.42
+0.45,Management,Food service managers,0.42
+0.47,Educational instruction,"Political science teachers, postsecondary",0.42
+0.38,Management,Marketing managers,0.42
+0.38,Business and finance,"Wholesale and retail buyers, except farm products",0.42
+0.47,Health care,Neurologists,0.42
+0.28,Sales,Real estate brokers,0.42
+0.48,"Life, physical, and social science",Occupational health and safety technicians,0.42
+0.27,Computer and math,Geographic information systems technologists and technicians,0.42
+0.33,"Life, physical, and social science",Hydrologists,0.42
+0.35,Management,Sales managers,0.42
+0.34,Engineering,Water/wastewater engineers,0.41
+0.5,Office support,Gambling cage workers,0.41
+0.46,Management,Construction managers,0.41
+0.35,Business and finance,Financial examiners,0.41
+0.48,Sales,First-line supervisors of non-retail sales workers,0.41
+0.45,"Life, physical, and social science",Sociologists,0.41
+0.42,Health care,Radiologists,0.41
+0.49,Health care,Psychiatrists,0.41
+0.42,"Life, physical, and social science",Materials scientists,0.41
+0.49,Office support,"Hotel, motel, and resort desk clerks",0.41
+0.5,Educational instruction,"Business teachers, postsecondary",0.41
+0.4,Management,Medical and health services managers,0.41
+0.39,Business and finance,Appraisers and assessors of real estate,0.41
+0.5,Educational instruction,"Physics teachers, postsecondary",0.41
+0.43,"Life, physical, and social science",Astronomers,0.41
+0.47,Management,Hydroelectric production managers,0.41
+0.47,Health care,Allergists and immunologists,0.4
+0.41,Engineering,Petroleum engineers,0.4
+0.5,Health care,Personal care aides,0.4
+0.4,Engineering,Human factors engineers and ergonomists,0.4
+0.48,Sales,First-line supervisors of retail sales workers,0.4
+0.48,Services and other,First-line supervisors of food preparation and serving workers,0.4
+0.48,Management,Architectural and engineering managers,0.4
+0.4,"Life, physical, and social science",Foresters,0.4
+0.49,Educational instruction,"Psychology teachers, postsecondary",0.4
+0.49,Health care,Audiologists,0.4
+0.45,"Life, physical, and social science",Biochemists and biophysicists,0.4
+0.49,Business and finance,"Agents and business managers of artists, performers, and athletes",0.4
+0.39,Computer and math,Computer and information research scientists,0.4
+0.26,"Life, physical, and social science",Remote sensing scientists and technologists,0.4
+0.43,Engineering,Environmental engineering technologists and technicians,0.4
+0.43,Engineering,Industrial engineering technologists and technicians,0.4
+0.47,Health care,Naturopathic physicians,0.4
+0.41,Management,General and operations managers,0.39
+0.41,Engineering,Chemical engineers,0.39
+0.5,Health care,Family medicine physicians,0.39
+0.49,Management,Funeral home managers,0.39
+0.5,Health care,Athletic trainers,0.39
+0.5,Health care,Pharmacy technicians,0.39
+0.5,Services and other,"Morticians, undertakers, and funeral arrangers",0.39
+0.5,Health care,"Pediatricians, general",0.39
+0.49,Management,"Property, real estate, and community association managers",0.39
+0.49,Management,Administrative services managers,0.39
+0.5,Educational instruction,"Middle school teachers, except special and career/technical education",0.39
+0.49,Educational instruction,"Art, drama, and music teachers, postsecondary",0.39
+0.46,Health care,Pharmacists,0.39
+0.49,"Life, physical, and social science",Zoologists and wildlife biologists,0.39
+0.47,Health care,Acupuncturists,0.39
+0.48,Services and other,Probation officers and correctional treatment specialists,0.39
+0.35,"Life, physical, and social science",Geographers,0.38
+0.49,Services and other,First-line supervisors of security workers,0.38
+0.32,"Life, physical, and social science",Precision agriculture technicians,0.38
+0.49,Office support,Cargo and freight agents,0.38
+0.5,Office support,"Meter readers, utilities",0.38
+0.48,Educational instruction,"Secondary school teachers, except special and career/technical education",0.38
+0.5,Services and other,First-line supervisors of personal service workers,0.38
+0.39,"Life, physical, and social science","Geoscientists, except hydrologists and geographers",0.38
+0.39,"Life, physical, and social science",Remote sensing technicians,0.38
+0.48,Health care,"Physicians, pathologists",0.38
+0.5,Services and other,Shampooers,0.38
+0.5,"Production, construction and transportation",Traffic technicians,0.38
+0.5,Educational instruction,"Biological science teachers, postsecondary",0.37
+0.49,Business and finance,"Insurance appraisers, auto damage",0.37
+0.44,Engineering,Civil engineers,0.37
+0.49,Health care,Sports medicine physicians,0.37
+0.47,Engineering,"Mining and geological engineers, including mining safety engineers",0.37
+0.46,"Life, physical, and social science",School psychologists,0.37
+0.48,Management,Chief executives,0.37
+0.49,Management,Social and community service managers,0.37
+0.46,"Arts, sports and media",Music directors and composers,0.37
+0.44,"Life, physical, and social science",Conservation scientists,0.37
+0.5,Engineering,"Architects, except landscape and naval",0.37
+0.5,Health care,Chiropractors,0.37
+0.49,"Production, construction and transportation",Transportation inspectors,0.37
+0.5,Educational instruction,Self-enrichment teachers,0.36
+0.5,"Production, construction and transportation",First-line supervisors of material-moving machine and vehicle operators,0.36
+0.49,Health care,Obstetricians and gynecologists,0.36
+0.49,Office support,Tellers,0.36
+0.44,Engineering,Electrical engineers,0.36
+0.5,Office support,"Library assistants, clerical",0.36
+0.5,Educational instruction,"Nursing instructors and teachers, postsecondary",0.36
+0.5,Services and other,Fish and game wardens,0.35
+0.48,Management,Loss prevention managers,0.35
+0.47,"Production, construction and transportation",Shuttle drivers and chauffeurs,0.35
+0.5,Services and other,"First-line supervisors of mechanics, installers, and repairers",0.35
+0.5,Services and other,"First-line supervisors of landscaping, lawn service, and groundskeeping workers",0.35
+0.49,Engineering,Mechanical engineering technologists and technicians,0.35
+0.5,Management,Legislators,0.35
+0.5,Services and other,"Hosts and hostesses, restaurant, lounge, and coffee shop",0.35
+0.42,"Life, physical, and social science",Range managers,0.35
+0.49,Services and other,Animal control workers,0.35
+0.5,Health care,Art therapists,0.35
+0.5,"Arts, sports and media",Coaches and scouts,0.35
+0.5,Health care,Midwives,0.35
+0.5,Educational instruction,"Career/technical education teachers, secondary school",0.34
+0.48,"Life, physical, and social science",Food scientists and technologists,0.34
+0.5,Services and other,First-line supervisors of gambling services workers,0.34
+0.5,Engineering,Robotics technicians,0.34
+0.5,Sales,Retail salespersons,0.34
+0.49,Health care,Advanced practice psychiatric nurses,0.34
+0.49,Services and other,"Coin, vending, and amusement machine servicers and repairers",0.34
+0.49,Educational instruction,"Career/technical education teachers, middle school",0.34
+0.5,Educational instruction,"Mathematical science teachers, postsecondary",0.34
+0.47,Engineering,Wind energy engineers,0.34
+0.47,Services and other,Health care social workers,0.34
+0.5,Legal,"Arbitrators, mediators, and conciliators",0.34
+0.49,"Arts, sports and media",Producers and directors,0.34
+0.49,Educational instruction,Adapted physical education specialists,0.33
+0.5,Services and other,Retail loss prevention specialists,0.33
+0.49,Sales,Parts salespersons,0.33
+0.5,"Production, construction and transportation","First-line supervisors of helpers, laborers, and material movers, hand",0.33
+0.48,"Production, construction and transportation",Driver/sales workers,0.33
+0.48,"Production, construction and transportation",Solar energy installation managers,0.33
+0.5,Engineering,Agricultural engineers,0.33
+0.5,Services and other,Mental health and substance abuse social workers,0.33
+0.5,Management,"Education administrators, kindergarten through secondary",0.33
+0.48,Engineering,Marine engineers and naval architects,0.33
+0.5,"Life, physical, and social science","Environmental science and protection technicians, including health",0.33
+0.49,"Production, construction and transportation",Stockers and order fillers,0.33
+0.48,Services and other,Rehabilitation counselors,0.33
+0.5,Health care,Medical dosimetrists,0.32
+0.48,Services and other,Detectives and criminal investigators,0.32
+0.49,"Production, construction and transportation","Transportation vehicle, equipment and systems inspectors, except aviation",0.32
+0.49,Health care,Occupational therapists,0.32
+0.49,Health care,Exercise physiologists,0.32
+0.46,Engineering,Surveying and mapping technicians,0.32
+0.5,Engineering,Civil engineering technologists and technicians,0.32
+0.45,Services and other,Tour guides and escorts,0.32
+0.5,Health care,Registered nurses,0.32
+0.5,Management,Facilities managers,0.32
+0.5,"Life, physical, and social science",Biological technicians,0.32
+0.5,Management,Biomass power plant managers,0.32
+0.43,Services and other,"Cooks, private household",0.32
+0.49,Health care,Cytogenetic technologists,0.31
+0.49,Services and other,Customs and border protection officers,0.31
+0.5,Health care,General internal medicine physicians,0.31
+0.47,Engineering,Landscape architects,0.31
+0.5,"Life, physical, and social science","Geological technicians, except hydrologic technicians",0.31
+0.49,Health care,Pediatric surgeons,0.31
+0.45,Sales,"Door-to-door sales workers, news and street vendors, and related workers",0.31
+0.5,"Life, physical, and social science",Occupational health and safety specialists,0.31
+0.5,"Production, construction and transportation",First-line supervisors of construction trades and extraction workers,0.3
+0.46,"Arts, sports and media","Umpires, referees, and other sports officials",0.3
+0.49,Health care,Orthoptists,0.3
+0.5,"Arts, sports and media",Media programming directors,0.3
+0.5,Services and other,First-line supervisors of firefighting and prevention workers,0.3
+0.49,Engineering,Nanotechnology engineering technologists and technicians,0.3
+0.5,Services and other,Mental health counselors,0.3
+0.5,"Life, physical, and social science",Chemists,0.3
+0.5,Health care,Podiatrists,0.3
+0.5,Services and other,"Child, family, and school social workers",0.3
+0.49,"Production, construction and transportation",Airfield operations specialists,0.3
+0.5,Engineering,Electrical and electronic engineering technologists and technicians,0.3
+0.46,Services and other,Exercise trainers and group fitness instructors,0.3
+0.5,Health care,Physician assistants,0.3
+0.49,Business and finance,Government property inspectors and investigators,0.3
+0.48,Educational instruction,"Elementary school teachers, except special education",0.3
+0.47,"Life, physical, and social science",Forest and conservation technicians,0.29
+0.44,Health care,Dental assistants,0.29
+0.42,"Production, construction and transportation","Bus drivers, school",0.29
+0.49,"Arts, sports and media",Audio and video technicians,0.29
+0.49,"Life, physical, and social science",Anthropologists and archeologists,0.29
+0.5,"Life, physical, and social science",Microbiologists,0.29
+0.41,"Arts, sports and media",Talent directors,0.29
+0.47,"Arts, sports and media","Disc jockeys, except radio",0.29
+0.48,Health care,Medical assistants,0.29
+0.45,"Production, construction and transportation",Weatherization installers and technicians,0.29
+0.5,Management,Biofuels production managers,0.28
+0.48,Services and other,Residential advisors,0.28
+0.49,Services and other,Chefs and head cooks,0.28
+0.5,Health care,Music therapists,0.28
+0.43,"Production, construction and transportation","Inspectors, testers, sorters, samplers, and weighers",0.28
+0.49,Health care,Dermatologists,0.28
+0.5,"Life, physical, and social science",Clinical neuropsychologists,0.28
+0.47,Services and other,Forest fire inspectors and prevention specialists,0.28
+0.46,Services and other,"Computer, automated teller, and office machine repairers",0.28
+0.43,Office support,Postal service mail carriers,0.27
+0.5,Engineering,Surveyors,0.27
+0.47,"Production, construction and transportation",Nuclear power reactor operators,0.27
+0.47,Services and other,"Electrical and electronics repairers, commercial and industrial equipment",0.27
+0.44,Health care,Occupational therapy aides,0.27
+0.4,Services and other,Amusement and recreation attendants,0.27
+0.49,Health care,Acute care nurses,0.27
+0.5,Health care,"Ophthalmologists, except pediatric",0.27
+0.5,"Production, construction and transportation",Air traffic controllers,0.27
+0.42,Health care,Psychiatric technicians,0.27
+0.44,Office support,"Weighers, measurers, checkers, and samplers, recordkeeping",0.27
+0.5,"Production, construction and transportation",Power distributors and dispatchers,0.27
+0.47,Educational instruction,"Special education teachers, middle school",0.27
+0.49,Health care,Recreational therapists,0.27
+0.48,"Life, physical, and social science",Food science technicians,0.27
+0.41,Office support,Postal service clerks,0.26
+0.45,Health care,"Opticians, dispensing",0.26
+0.45,"Production, construction and transportation",Aircraft cargo handling supervisors,0.26
+0.39,Sales,Models,0.26
+0.47,Health care,Physical therapists,0.26
+0.38,Services and other,Gambling surveillance officers and gambling investigators,0.26
+0.43,Health care,Veterinary assistants and laboratory animal caretakers,0.25
+0.49,Services and other,Private detectives and investigators,0.25
+0.49,Engineering,Electro-mechanical and mechatronics technologists and technicians,0.25
+0.46,Services and other,Fire inspectors and investigators,0.25
+0.38,"Arts, sports and media",Actors,0.25
+0.49,Health care,Urologists,0.25
+0.47,"Production, construction and transportation",Railroad conductors and yardmasters,0.25
+0.49,"Life, physical, and social science",Chemical technicians,0.25
+0.43,Health care,Occupational therapy assistants,0.25
+0.48,Health care,Emergency medicine physicians,0.24
+0.41,Services and other,Costume attendants,0.24
+0.46,Educational instruction,"Special education teachers, secondary school",0.24
+0.36,"Production, construction and transportation",Gas compressor and gas pumping station operators,0.24
+0.47,"Life, physical, and social science",Nuclear monitoring technicians,0.24
+0.42,"Production, construction and transportation",Refuse and recyclable material collectors,0.24
+0.42,Office support,Couriers and messengers,0.24
+0.45,Health care,Nuclear medicine technologists,0.24
+0.37,"Production, construction and transportation",Subway and streetcar operators,0.24
+0.48,Services and other,Substance abuse and behavioral disorder counselors,0.24
+0.47,Health care,"Low vision therapists, orientation and mobility specialists, and vision rehabilitation therapists",0.24
+0.46,Services and other,Industrial machinery mechanics,0.24
+0.41,Services and other,Animal caretakers,0.24
+0.44,Engineering,Non-destructive testing specialists,0.23
+0.44,Health care,Veterinarians,0.23
+0.44,"Production, construction and transportation",Aviation inspectors,0.23
+0.44,"Production, construction and transportation","Airline pilots, copilots, and flight engineers",0.23
+0.42,Services and other,First-line supervisors of correctional officers,0.23
+0.43,Educational instruction,"Kindergarten teachers, except special education",0.23
+0.4,Services and other,Audiovisual equipment installers and repairers,0.23
+0.42,Educational instruction,"Special education teachers, elementary school",0.23
+0.36,Services and other,Baggage porters and bellhops,0.23
+0.44,Services and other,"Electrical and electronics repairers, powerhouse, substation, and relay",0.23
+0.44,Engineering,Calibration technologists and technicians,0.23
+0.46,Health care,Anesthesiologists,0.23
+0.43,Services and other,"Telecommunications equipment installers and repairers, except line installers",0.23
+0.48,Health care,"Orthopedic surgeons, except pediatric",0.23
+0.46,Services and other,Medical equipment repairers,0.23
+0.39,Educational instruction,"Teaching assistants, preschool, elementary, middle, and secondary school, except special education",0.23
+0.38,"Production, construction and transportation",Chemical equipment operators and tenders,0.22
+0.42,Health care,Massage therapists,0.22
+0.49,Engineering,Automotive engineering technicians,0.22
+0.38,"Production, construction and transportation",Taxi drivers,0.22
+0.39,Services and other,Parking enforcement workers,0.22
+0.42,Health care,Diagnostic medical sonographers,0.22
+0.43,Health care,Neurodiagnostic technologists,0.22
+0.43,Health care,Medical and clinical laboratory technologists,0.22
+0.43,"Life, physical, and social science",Agricultural technicians,0.22
+0.45,Health care,Cardiologists,0.21
+0.38,Health care,Emergency medical technicians,0.21
+0.45,"Production, construction and transportation",Commercial pilots,0.21
+0.44,Legal,"Judges, magistrate judges, and magistrates",0.21
+0.36,Health care,Respiratory therapists,0.21
+0.36,Office support,"Office machine operators, except computer",0.21
+0.43,Health care,Optometrists,0.21
+0.42,Educational instruction,"Special education teachers, preschool",0.21
+0.37,"Production, construction and transportation",Automotive and watercraft service attendants,0.21
+0.35,Services and other,Correctional officers and jailers,0.21
+0.45,Health care,"Dentists, general",0.21
+0.42,Services and other,Recreation workers,0.21
+0.34,"Production, construction and transportation",Bridge and lock tenders,0.21
+0.37,Services and other,Home appliance repairers,0.21
+0.36,Educational instruction,"Teaching assistants, special education",0.2
+0.39,Educational instruction,"Special education teachers, kindergarten",0.2
+0.36,Health care,Cardiovascular technologists and technicians,0.2
+0.44,Health care,Physical medicine and rehabilitation physicians,0.2
+0.5,"Arts, sports and media",Interior designers,0.2
+0.34,Services and other,Manicurists and pedicurists,0.2
+0.42,Health care,Orthodontists,0.2
+0.32,Health care,Medical equipment preparers,0.2
+0.37,"Production, construction and transportation",Butchers and meat cutters,0.2
+0.5,Office support,Desktop publishers,0.2
+0.41,Health care,Nurse anesthetists,0.2
+0.32,Services and other,Childcare workers,0.2
+0.36,"Production, construction and transportation",Heavy and tractor-trailer truck drivers,0.2
+0.4,Services and other,"Cooks, institution and cafeteria",0.2
+0.41,"Arts, sports and media",Musicians and singers,0.2
+0.5,"Arts, sports and media",Commercial and industrial designers,0.19
+0.47,"Production, construction and transportation",Solar photovoltaic installers,0.19
+0.31,Services and other,Bailiffs,0.19
+0.35,"Production, construction and transportation","Textile cutting machine setters, operators, and tenders",0.19
+0.48,"Arts, sports and media",Set and exhibit designers,0.19
+0.38,Health care,Magnetic resonance imaging technologists,0.19
+0.38,Services and other,Police and sheriff's patrol officers,0.19
+0.4,"Production, construction and transportation",Team assemblers,0.19
+0.36,Health care,Radiologic technologists and technicians,0.19
+0.3,"Production, construction and transportation","Coil winders, tapers, and finishers",0.19
+0.43,Services and other,Wind turbine service technicians,0.19
+0.41,Services and other,Barbers,0.19
+0.35,Services and other,Waiters and waitresses,0.19
+0.37,Health care,Orthotists and prosthetists,0.18
+0.42,Engineering,Electrical and electronics drafters,0.18
+0.44,"Life, physical, and social science",Nuclear technicians,0.18
+0.4,Educational instruction,Museum technicians and conservators,0.18
+0.37,"Production, construction and transportation","Petroleum pump system operators, refinery operators, and gaugers",0.18
+0.38,Business and finance,Coroners,0.18
+0.36,"Production, construction and transportation",Stationary engineers and boiler operators,0.18
+0.35,Services and other,Funeral attendants,0.18
+0.32,"Production, construction and transportation","Textile knitting and weaving machine setters, operators, and tenders",0.18
+0.29,"Production, construction and transportation",Food cooking machine operators and tenders,0.18
+0.34,Services and other,Farm equipment mechanics and service technicians,0.18
+0.33,Services and other,Transit and railroad police,0.18
+0.33,"Production, construction and transportation",Chemical plant and system operators,0.18
+0.29,Health care,Psychiatric aides,0.18
+0.33,Health care,Home health aides,0.18
+0.5,Engineering,Cartographers and photogrammetrists,0.18
+0.29,"Production, construction and transportation",Ship engineers,0.18
+0.36,"Production, construction and transportation",Electrical and electronic equipment assemblers,0.17
+0.39,"Production, construction and transportation",Machinists,0.17
+0.38,"Production, construction and transportation",Printing press operators,0.17
+0.35,Educational instruction,"Substitute teachers, short-term",0.17
+0.32,"Production, construction and transportation","Bus drivers, transit and intercity",0.17
+0.4,Sales,Gambling change persons and booth cashiers,0.17
+0.28,Services and other,"Locker room, coatroom, and dressing room attendants",0.17
+0.36,Health care,Critical care nurses,0.17
+0.28,Services and other,Crematory operators,0.17
+0.45,Engineering,Aerospace engineering and operations technologists and technicians,0.17
+0.42,Services and other,Geothermal technicians,0.17
+0.31,Services and other,Watch and clock repairers,0.16
+0.4,Health care,Radiation therapists,0.16
+0.31,Services and other,Police identification and records officers,0.16
+0.4,"Arts, sports and media",Broadcast technicians,0.16
+0.32,"Production, construction and transportation",Bakers,0.16
+0.42,"Arts, sports and media",Graphic designers,0.16
+0.34,"Production, construction and transportation",Computer numerically controlled tool operators,0.16
+0.31,"Production, construction and transportation","Captains, mates, and pilots of water vessels",0.16
+0.32,Health care,Phlebotomists,0.16
+0.27,"Production, construction and transportation","Rail yard engineers, dinkey operators, and hostlers",0.16
+0.27,Health care,Physical therapist aides,0.16
+0.39,"Arts, sports and media",Floral designers,0.16
+0.36,Health care,Cytotechnologists,0.16
+0.38,"Arts, sports and media","Camera operators, television, video, and film",0.16
+0.38,"Production, construction and transportation",Gas plant operators,0.16
+0.37,"Production, construction and transportation",Power plant operators,0.15
+0.36,Services and other,Security and fire alarm systems installers,0.15
+0.43,"Arts, sports and media",Special effects artists and animators,0.15
+0.32,Educational instruction,"Preschool teachers, except special education",0.15
+0.29,"Production, construction and transportation",Textile bleaching and dyeing machine operators and tenders,0.15
+0.29,Services and other,"Maintenance workers, machinery",0.15
+0.29,"Production, construction and transportation","Furnace, kiln, oven, drier, and kettle operators and tenders",0.15
+0.33,Sales,Cashiers,0.15
+0.35,Services and other,Avionics technicians,0.15
+0.29,"Production, construction and transportation",Conveyor operators and tenders,0.15
+0.35,Services and other,Pest control workers,0.15
+0.39,Engineering,Photonics technicians,0.15
+0.3,Health care,Veterinary technologists and technicians,0.15
+0.36,Health care,Paramedics,0.15
+0.29,Services and other,Transportation security screeners,0.14
+0.3,"Production, construction and transportation",Jewelers and precious stone and metal workers,0.14
+0.27,"Production, construction and transportation",Food batchmakers,0.14
+0.48,Engineering,Architectural and civil drafters,0.14
+0.24,"Production, construction and transportation","Crushing, grinding, and polishing machine setters, operators, and tenders",0.14
+0.24,Services and other,Firefighters,0.14
+0.3,"Production, construction and transportation",Cabinetmakers and bench carpenters,0.14
+0.24,Services and other,Security guards,0.14
+0.24,Services and other,"Hairdressers, hairstylists, and cosmetologists",0.14
+0.24,"Production, construction and transportation",Locomotive engineers,0.14
+0.33,"Production, construction and transportation","Earth drillers, except oil and gas",0.14
+0.29,"Production, construction and transportation",Carpenters,0.14
+0.31,"Production, construction and transportation","Patternmakers, wood",0.14
+0.24,Health care,Physical therapist assistants,0.14
+0.27,"Production, construction and transportation","Rolling machine setters, operators, and tenders, metal and plastic",0.13
+0.23,"Production, construction and transportation",Water and wastewater treatment plant and system operators,0.13
+0.23,"Production, construction and transportation","Textile winding, twisting, and drawing out machine setters, operators, and tenders",0.13
+0.23,"Production, construction and transportation",Light truck drivers,0.13
+0.23,"Production, construction and transportation",Semiconductor processing technicians,0.13
+0.23,Services and other,Nannies,0.13
+0.39,Business and finance,Farm labor contractors,0.13
+0.39,"Production, construction and transportation",Construction and building inspectors,0.13
+0.38,"Production, construction and transportation",Fabric and apparel patternmakers,0.13
+0.29,Services and other,Gambling and sports book writers and runners,0.13
+0.29,Health care,Licensed practical and licensed vocational nurses,0.13
+0.3,Services and other,Bartenders,0.13
+0.31,"Arts, sports and media",Craft artists,0.13
+0.31,Health care,Dental hygienists,0.13
+0.31,Services and other,"Electrical and electronics installers and repairers, transportation equipment",0.13
+0.32,"Production, construction and transportation","Milling and planing machine setters, operators, and tenders, metal and plastic",0.13
+0.36,"Arts, sports and media",Athletes and sports competitors,0.12
+0.31,"Life, physical, and social science",Forensic science technicians,0.12
+0.2,"Production, construction and transportation",Flight attendants,0.12
+0.37,"Production, construction and transportation","Insulation workers, mechanical",0.12
+0.26,"Production, construction and transportation",Passenger attendants,0.12
+0.4,"Arts, sports and media","Fine artists, including painters, sculptors, and illustrators",0.12
+0.26,Health care,Endoscopy technicians,0.12
+0.3,Health care,Histotechnologists,0.12
+0.42,"Arts, sports and media",Fashion designers,0.12
+0.3,Services and other,"Cooks, restaurant",0.12
+0.37,"Arts, sports and media",Merchandise displayers and window trimmers,0.12
+0.3,"Production, construction and transportation","Model makers, metal and plastic",0.12
+0.24,Office support,"Mail clerks and mail machine operators, except postal service",0.12
+0.43,"Arts, sports and media",Art directors,0.12
+0.29,"Production, construction and transportation","Welding, soldering, and brazing machine setters, operators, and tenders",0.12
+0.27,Services and other,"Electronic equipment installers and repairers, motor vehicles",0.12
+0.33,Services and other,"Maintenance and repair workers, general",0.12
+0.25,"Production, construction and transportation",Hydroelectric plant technicians,0.12
+0.29,Office support,"Postal service mail sorters, processors, and processing machine operators",0.12
+0.32,Services and other,Embalmers,0.12
+0.25,Services and other,Baristas,0.11
+0.35,"Production, construction and transportation",Prepress technicians and workers,0.11
+0.23,"Production, construction and transportation",Septic tank servicers and sewer pipe cleaners,0.11
+0.28,Services and other,Skincare specialists,0.11
+0.34,"Arts, sports and media",Choreographers,0.11
+0.24,"Production, construction and transportation",Operating engineers and other construction equipment operators,0.11
+0.36,Services and other,Camera and photographic equipment repairers,0.11
+0.25,Services and other,Outdoor power equipment and other small engine mechanics,0.11
+0.23,"Production, construction and transportation","Multiple machine tool setters, operators, and tenders, metal and plastic",0.11
+0.26,"Production, construction and transportation","Pump operators, except wellhead pumpers",0.11
+0.24,Services and other,Gambling dealers,0.11
+0.22,Services and other,Fast food and counter workers,0.11
+0.28,"Production, construction and transportation","Painters, construction and maintenance",0.11
+0.26,"Production, construction and transportation",Biomass plant technicians,0.11
+0.42,"Arts, sports and media",Photographers,0.11
+0.19,"Production, construction and transportation","Mixing and blending machine setters, operators, and tenders",0.11
+0.2,"Production, construction and transportation","Laborers and freight, stock, and material movers, hand",0.11
+0.2,Services and other,School bus monitors,0.11
+0.19,"Production, construction and transportation","Extruding, forming, pressing, and compacting machine setters, operators, and tenders",0.11
+0.19,Health care,Ophthalmic medical technicians,0.11
+0.33,"Production, construction and transportation",Elevator and escalator installers and repairers,0.1
+0.25,"Production, construction and transportation","Model makers, wood",0.1
+0.33,"Production, construction and transportation",Biofuels processing technicians,0.1
+0.23,Health care,Ophthalmic medical technologists,0.1
+0.26,"Production, construction and transportation","Glass blowers, molders, benders, and finishers",0.1
+0.2,Health care,Nursing assistants,0.1
+0.21,"Production, construction and transportation",Print binding and finishing workers,0.1
+0.32,Health care,Medical and clinical laboratory technicians,0.1
+0.18,"Production, construction and transportation","Loading and moving machine operators, underground mining",0.1
+0.23,"Production, construction and transportation","Excavating and loading machine and dragline operators, surface mining",0.1
+0.18,"Production, construction and transportation","Food and tobacco roasting, baking, and drying machine operators and tenders",0.1
+0.18,Services and other,"Heating, air conditioning, and refrigeration mechanics and installers",0.1
+0.25,"Arts, sports and media",Film and video editors,0.1
+0.23,Services and other,"Control and valve installers and repairers, except mechanical door",0.1
+0.23,"Arts, sports and media",Sound engineering technicians,0.1
+0.22,Services and other,"Lifeguards, ski patrol, and other recreational protective service workers",0.1
+0.18,"Production, construction and transportation","Rotary drill operators, oil and gas",0.1
+0.17,"Production, construction and transportation","Ambulance drivers and attendants, except emergency medical technicians",0.1
+0.32,Services and other,"Mobile heavy equipment mechanics, except engines",0.1
+0.24,"Production, construction and transportation",Hazardous materials removal workers,0.09
+0.29,"Production, construction and transportation","Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic",0.09
+0.22,"Production, construction and transportation","Heat treating equipment setters, operators, and tenders, metal and plastic",0.09
+0.24,"Production, construction and transportation",Upholsterers,0.09
+0.29,Health care,Anesthesiologist assistants,0.09
+0.16,"Production, construction and transportation","Packers and packagers, hand",0.09
+0.16,"Production, construction and transportation","Cleaning, washing, and metal pickling equipment operators and tenders",0.09
+0.22,"Production, construction and transportation","Extruding and drawing machine setters, operators, and tenders, metal and plastic",0.09
+0.17,"Production, construction and transportation","Separating, filtering, clarifying, precipitating, and still machine setters, operators, and tenders",0.09
+0.22,Services and other,Recreational vehicle service technicians,0.09
+0.27,"Arts, sports and media",Media technical directors/managers,0.08
+0.26,"Production, construction and transportation",Crane and tower operators,0.08
+0.19,"Production, construction and transportation","Service unit operators, oil and gas",0.08
+0.15,"Production, construction and transportation","Forging machine setters, operators, and tenders, metal and plastic",0.08
+0.14,Services and other,Maids and housekeeping cleaners,0.08
+0.2,Health care,Surgical technologists,0.08
+0.22,Services and other,"Ushers, lobby attendants, and ticket takers",0.08
+0.18,Services and other,Animal trainers,0.08
+0.21,"Production, construction and transportation",Photographic process workers and processing machine operators,0.08
+0.31,Services and other,"Makeup artists, theatrical and performance",0.08
+0.15,"Production, construction and transportation",Machine feeders and offbearers,0.08
+0.15,Services and other,Motorboat mechanics and service technicians,0.08
+0.19,Services and other,Aircraft mechanics and service technicians,0.08
+0.19,Services and other,Telecommunications line installers and repairers,0.08
+0.14,Services and other,Locksmiths and safe repairers,0.08
+0.47,Engineering,Mechanical drafters,0.07
+0.17,"Production, construction and transportation",Furniture finishers,0.07
+0.17,"Production, construction and transportation","Explosives workers, ordnance handling experts, and blasters",0.07
+0.12,"Production, construction and transportation","Derrick operators, oil and gas",0.07
+0.17,Services and other,"Radio, cellular, and tower equipment installers and repairers",0.07
+0.18,"Production, construction and transportation","Plumbers, pipefitters, and steamfitters",0.07
+0.16,Services and other,"Janitors and cleaners, except maids and housekeeping cleaners",0.07
+0.16,"Production, construction and transportation","Tailors, dressmakers, and custom sewers",0.07
+0.16,Services and other,Mechanical door repairers,0.07
+0.13,Services and other,"Food servers, nonrestaurant",0.07
+0.13,Services and other,Crossing guards and flaggers,0.07
+0.13,"Production, construction and transportation",Metal-refining furnace operators and tenders,0.07
+0.15,Services and other,"Electric motor, power tool, and related repairers",0.07
+0.13,"Production, construction and transportation",Medical appliance technicians,0.07
+0.13,Services and other,Signal and track switch repairers,0.07
+0.13,Services and other,Landscaping and groundskeeping workers,0.07
+0.14,"Production, construction and transportation",Construction laborers,0.07
+0.11,"Production, construction and transportation",Cooling and freezing equipment operators and tenders,0.06
+0.11,"Production, construction and transportation","Plating machine setters, operators, and tenders, metal and plastic",0.06
+0.11,Services and other,Rail car repairers,0.06
+0.11,"Production, construction and transportation",Shoe machine operators and tenders,0.06
+0.1,"Production, construction and transportation",Aircraft service attendants,0.06
+0.11,"Production, construction and transportation","Railroad brake, signal, and switch operators and locomotive firers",0.06
+0.11,"Production, construction and transportation",Adhesive bonding machine operators and tenders,0.06
+0.14,"Production, construction and transportation","Cutting and slicing machine setters, operators, and tenders",0.06
+0.14,"Production, construction and transportation",Sewing machine operators,0.06
+0.15,Services and other,Tree trimmers and pruners,0.06
+0.16,"Production, construction and transportation",Electricians,0.06
+0.14,"Production, construction and transportation",Sailors and marine oilers,0.05
+0.09,"Production, construction and transportation",Cleaners of vehicles and equipment,0.05
+0.09,"Production, construction and transportation","Extruding and forming machine setters, operators, and tenders, synthetic and glass fibers",0.05
+0.09,"Production, construction and transportation","Grinding and polishing workers, hand",0.05
+0.19,"Production, construction and transportation",Parking attendants,0.05
+0.1,"Production, construction and transportation","Tank car, truck, and ship loaders",0.05
+0.17,"Production, construction and transportation",Gem and diamond workers,0.05
+0.1,"Production, construction and transportation",Recycling and reclamation workers,0.05
+0.17,"Production, construction and transportation",Engine and other machine assemblers,0.05
+0.17,"Production, construction and transportation",Sheet metal workers,0.05
+0.17,"Production, construction and transportation","Molding, coremaking, and casting machine setters, operators, and tenders, metal and plastic",0.05
+0.18,Services and other,"Cooks, fast food",0.05
+0.19,Services and other,"Pesticide handlers, sprayers, and applicators, vegetation",0.05
+0.17,"Production, construction and transportation","Insulation workers, floor, ceiling, and wall",0.05
+0.14,"Production, construction and transportation","Woodworking machine setters, operators, and tenders, except sawing",0.04
+0.08,Services and other,Automotive body and related repairers,0.04
+0.07,"Production, construction and transportation","Coating, painting, and spraying machine setters, operators, and tenders",0.04
+0.16,"Production, construction and transportation","Potters, manufacturing",0.04
+0.14,"Production, construction and transportation",Brickmasons and blockmasons,0.04
+0.15,Health care,Oral and maxillofacial surgeons,0.04
+0.15,Health care,Hearing aid specialists,0.04
+0.15,"Production, construction and transportation","Patternmakers, metal and plastic",0.04
+0.08,"Production, construction and transportation",Helpers--electricians,0.04
+0.14,"Production, construction and transportation","Welders, cutters, solderers, and brazers",0.04
+0.08,Services and other,Motion picture projectionists,0.04
+0.14,Services and other,Automotive service technicians and mechanics,0.04
+0.25,"Production, construction and transportation","Layout workers, metal and plastic",0.04
+0.13,Services and other,Manufactured building and mobile home installers,0.04
+0.11,"Arts, sports and media",Dancers,0.03
+0.11,"Production, construction and transportation",Continuous mining machine operators,0.03
+0.22,"Production, construction and transportation","Lathe and turning machine tool setters, operators, and tenders, metal and plastic",0.03
+0.11,"Production, construction and transportation",Motorboat operators,0.03
+0.06,"Production, construction and transportation",Helpers--production workers,0.03
+0.1,"Production, construction and transportation",Timing device assemblers and adjusters,0.03
+0.11,"Production, construction and transportation",Tool and die makers,0.03
+0.11,"Production, construction and transportation","Cutters and trimmers, hand",0.03
+0.12,"Production, construction and transportation","Drilling and boring machine tool setters, operators, and tenders, metal and plastic",0.03
+0.13,Services and other,Bicycle repairers,0.03
+0.13,"Production, construction and transportation",Plasterers and stucco masons,0.03
+0.11,"Production, construction and transportation","Tool grinders, filers, and sharpeners",0.03
+0.11,Services and other,"Helpers--installation, maintenance, and repair workers",0.03
+0.12,"Production, construction and transportation",Tapers,0.03
+0.07,Services and other,Food preparation workers,0.03
+0.09,"Production, construction and transportation",Solar thermal installers and technicians,0.02
+0.09,Services and other,Electrical power-line installers and repairers,0.02
+0.07,"Production, construction and transportation",Shoe and leather workers and repairers,0.02
+0.07,Services and other,Bus and truck mechanics and diesel engine specialists,0.02
+0.07,Services and other,Tire repairers and changers,0.02
+0.07,"Production, construction and transportation",Roofers,0.02
+0.08,"Production, construction and transportation",Tile and stone setters,0.02
+0.08,Services and other,Commercial divers,0.02
+0.08,"Production, construction and transportation",Glaziers,0.02
+0.08,"Production, construction and transportation",Drywall and ceiling tile installers,0.02
+0.08,"Production, construction and transportation","Sawing machine setters, operators, and tenders, wood",0.02
+0.09,"Production, construction and transportation",Fence erectors,0.02
+0.07,"Production, construction and transportation","Cutting, punching, and press machine setters, operators, and tenders, metal and plastic",0.02
+0.06,"Production, construction and transportation",Laundry and dry-cleaning workers,0.02
+0.07,Health care,Surgical assistants,0.02
+0,"Production, construction and transportation",Floor sanders and finishers,0
+0,"Production, construction and transportation",Carpet installers,0
+0,"Production, construction and transportation","Floor layers, except carpet, wood, and hard tiles",0
+0,"Production, construction and transportation",Structural metal fabricators and fitters,0
+0,"Production, construction and transportation",Pipelayers,0
+0,"Production, construction and transportation",Slaughterers and meat packers,0
+0,Services and other,Dining room and cafeteria attendants and bartender helpers,0
+0,"Production, construction and transportation",Dredge operators,0
+0,Health care,Histology technicians,0
+0,Services and other,Millwrights,0
+0,"Production, construction and transportation","Pourers and casters, metal",0
+0,"Production, construction and transportation",Packaging and filling machine operators and tenders,0
+0,"Production, construction and transportation","Meat, poultry, and fish cutters and trimmers",0
+0,"Production, construction and transportation",Etchers and engravers,0
+0,Health care,Orderlies,0
+0,"Production, construction and transportation",Terrazzo workers and finishers,0
+0,"Production, construction and transportation",Cement masons and concrete finishers,0
+0,"Production, construction and transportation",Dental laboratory technicians,0
+0,"Production, construction and transportation",Wellhead pumpers,0
+0,"Production, construction and transportation","Paving, surfacing, and tamping equipment operators",0
+0,"Production, construction and transportation","Helpers--brickmasons, blockmasons, stonemasons, and tile and marble setters",0
+0,"Production, construction and transportation",Rail-track laying and maintenance equipment operators,0
+0,Health care,Prosthodontists,0
+0,Services and other,Motorcycle mechanics,0
+0,"Production, construction and transportation","Painting, coating, and decorating workers",0
+0,"Arts, sports and media",Lighting technicians,0
+0,"Production, construction and transportation","Stone cutters and carvers, manufacturing",0
+0,Services and other,Musical instrument repairers and tuners,0
+0,Services and other,"Refractory materials repairers, except brickmasons",0
+0,"Production, construction and transportation",Reinforcing iron and rebar workers,0
+0,"Production, construction and transportation","Pressers, textile, garment, and related materials",0
+0,"Production, construction and transportation",Electromechanical equipment assemblers,0
+0,"Production, construction and transportation",Helpers--extraction workers,0
+0.11,"Production, construction and transportation",Structural iron and steel workers,0
+0.07,"Production, construction and transportation","Aircraft structure, surfaces, rigging, and systems assemblers",0
+0,"Production, construction and transportation",Segmental pavers,0
+0,"Production, construction and transportation","Molders, shapers, and casters, except metal and plastic",0
+0,Services and other,Automotive glass installers and repairers,0
+0,Services and other,Dishwashers,0
+0,"Production, construction and transportation",Ophthalmic laboratory technicians,0
+0,"Production, construction and transportation",Fiberglass laminators and fabricators,0
+0,"Production, construction and transportation",Hoist and winch operators,0
+0,"Production, construction and transportation",Paperhangers,0
+0,Services and other,"Cooks, short order",0
+0,"Production, construction and transportation",Pile driver operators,0
+0,"Production, construction and transportation",Foundry mold and coremakers,0
+0,"Production, construction and transportation",Industrial truck and tractor operators,0
+0,Services and other,Riggers,0
+0,"Production, construction and transportation",Boilermakers,0
+0,"Production, construction and transportation",Stonemasons,0
+0,"Production, construction and transportation",Tire builders,0
+0,"Production, construction and transportation",Helpers--carpenters,0
+0,"Production, construction and transportation","Helpers--painters, paperhangers, plasterers, and stucco masons",0
+0,"Production, construction and transportation","Sewers, hand",0
+0,"Production, construction and transportation","Helpers--pipelayers, plumbers, pipefitters, and steamfitters",0
+0,"Production, construction and transportation",Helpers--roofers,0
+0,"Production, construction and transportation","Paper goods machine setters, operators, and tenders",0
+0,"Production, construction and transportation","Roof bolters, mining",0
+0,"Production, construction and transportation","Rock splitters, quarry",0
+0,"Production, construction and transportation","Roustabouts, oil and gas",0
+0,"Production, construction and transportation",Highway maintenance workers,0

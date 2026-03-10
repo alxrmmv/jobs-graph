@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Labor Market Impact — Job Displacement vs Augmentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0b0f;--bg2:#11121a;--bg3:#181a25;--bg4:#1e2030;
+  --text:#c8cad8;--text2:#8b8fa4;--text3:#555870;
+  --accent:#64d2ff;--accent2:#bf5af2;--accent3:#30d158;--accent4:#ff6482;
+  --border:#252840;--border2:#1c1e30;
+  --q-ur:rgba(48,209,88,.06);--q-ul:rgba(100,210,255,.04);
+  --q-bl:rgba(255,100,130,.06);--q-br:rgba(191,90,242,.05);
+}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow:hidden;height:100vh;display:flex;flex-direction:column;max-width:1440px;margin:0 auto}
+::selection{background:var(--accent);color:var(--bg)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+header{padding:20px 32px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;flex-shrink:0}
+.brand{display:flex;flex-direction:column;gap:4px}
+.brand h1{font-family:'Playfair Display',serif;font-weight:700;font-size:2.6rem;color:#fff;letter-spacing:-.02em;line-height:1.15}
+.brand h1 em{font-style:italic;color:var(--accent);font-weight:400}
+.brand .sub{font-size:1.05rem;color:var(--text2);font-weight:300;max-width:720px;line-height:1.55;margin-top:6px}
+.brand .sub strong{color:var(--accent4);font-weight:500}
+.brand .sub .pos{color:var(--accent3);font-weight:500}
+.meta{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);text-align:right;line-height:1.7;white-space:nowrap}
+.meta span{color:var(--text2)}
+
+.controls{display:flex;gap:12px;padding:10px 32px;align-items:stretch;flex-wrap:wrap;flex-shrink:0}
+.search-wrap{position:relative;flex:0 0 280px}
+.search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);width:16px;height:16px}
+.search-wrap input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px 10px 36px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-wrap input:focus{border-color:var(--accent)}
+.search-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg3);border:1px solid var(--border);border-radius:8px;max-height:260px;overflow-y:auto;z-index:200;display:none;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.search-dropdown.show{display:block;animation:fadeIn .12s ease}
+.search-dropdown .sr-item{padding:8px 14px;cursor:pointer;font-size:.8rem;color:var(--text);display:flex;align-items:center;gap:10px;transition:background .1s}
+.search-dropdown .sr-item:hover,.search-dropdown .sr-item.active{background:var(--bg4);color:#fff}
+.search-dropdown .sr-item .sr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.search-dropdown .sr-item .sr-family{font-size:.65rem;color:var(--text3);margin-left:auto;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.search-dropdown .sr-item mark{background:none;color:var(--accent);font-weight:500}
+.search-dropdown .sr-empty{padding:12px 14px;font-size:.78rem;color:var(--text3);font-style:italic}
+.pin-label{position:absolute;z-index:8;pointer-events:none;background:rgba(24,26,37,.92);border:1px solid var(--accent);border-radius:5px;padding:3px 10px;font-size:.72rem;color:#fff;font-family:'DM Sans',sans-serif;white-space:nowrap;transform:translate(-50%,-100%);margin-top:-12px;backdrop-filter:blur(6px);opacity:0;transition:opacity .25s}
+.pin-label.show{opacity:1}
+.pin-label::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid var(--accent)}
+
+.filter-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;position:relative}
+.filter-btn:hover{border-color:var(--accent);color:#fff}
+.filter-btn .count{background:var(--accent);color:var(--bg);font-size:.7rem;font-weight:600;padding:1px 6px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.filter-btn svg{width:14px;height:14px;transition:transform .2s}
+.filter-btn.open svg{transform:rotate(180deg)}
+
+.filter-panel{position:absolute;top:calc(100% + 6px);left:0;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:8px;z-index:100;min-width:260px;display:none;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.filter-panel.show{display:block;animation:fadeIn .15s ease}
+.filter-panel label{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;cursor:pointer;font-size:.8rem;color:var(--text);transition:background .15s}
+.filter-panel label:hover{background:var(--bg4)}
+.filter-panel label input{display:none}
+.filter-panel label .check{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.filter-panel label input:checked~.check{background:var(--accent);border-color:var(--accent)}
+.filter-panel label input:checked~.check::after{content:'';display:block;width:4px;height:8px;border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-0.5px,-0.5px)}
+.filter-panel label .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.filter-panel .actions{display:flex;gap:6px;padding:6px 10px 4px;border-top:1px solid var(--border2);margin-top:4px}
+.filter-panel .actions button{background:none;border:none;color:var(--accent);font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;padding:4px 0}
+.filter-panel .actions button:hover{text-decoration:underline}
+
+.stats-bar{display:flex;gap:20px;padding:0 32px 4px;flex-wrap:wrap;flex-shrink:0}
+.stat{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text3)}
+.stat span{color:var(--text)}
+
+.viz-container{position:relative;margin:0 32px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2);flex:1;min-height:0}
+.canvas-wrap{position:relative;width:100%;height:100%}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#plotCanvas{z-index:1}
+#overlayCanvas{z-index:2;pointer-events:none}
+#hitCanvas{z-index:3;cursor:crosshair}
+
+.quadrant-labels{position:absolute;inset:0;pointer-events:none;z-index:4}
+.q-label{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;opacity:.5}
+.q-label.ur{top:12px;right:16px;color:var(--accent3)}
+.q-label.tl{top:12px;left:60px;color:var(--accent2)}
+.q-label.bl{bottom:56px;left:60px;color:var(--accent4)}
+.q-label.br{bottom:56px;right:16px;color:var(--accent)}
+.q-label .big{display:block;font-family:'Playfair Display',serif;font-size:2.2rem;text-transform:none;letter-spacing:-.01em;opacity:.7;margin-bottom:2px}
+
+.tooltip{position:fixed;pointer-events:none;z-index:1000;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:.8rem;max-width:320px;box-shadow:0 8px 30px rgba(0,0,0,.6);opacity:0;transition:opacity .12s;backdrop-filter:blur(12px)}
+.tooltip.show{opacity:1}
+.tooltip .tt-title{color:#fff;font-weight:600;font-size:.85rem;margin-bottom:6px;line-height:1.3}
+.tooltip .tt-family{font-size:.7rem;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.tooltip .tt-family .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tooltip .tt-scores{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tooltip .tt-score{background:var(--bg);border-radius:6px;padding:6px 10px}
+.tooltip .tt-score .label{font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text3);font-family:'JetBrains Mono',monospace}
+.tooltip .tt-score .val{font-size:1rem;font-weight:600;font-family:'JetBrains Mono',monospace;margin-top:2px}
+.tooltip .tt-score.auto .val{color:var(--accent4)}
+.tooltip .tt-score.aug .val{color:var(--accent3)}
+
+.axis-label{position:absolute;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--text3);letter-spacing:.04em;z-index:5;pointer-events:none}
+.axis-label.x{bottom:4px;left:50%;transform:translateX(-50%)}
+.axis-label.y{top:50%;left:6px;transform:rotate(-90deg) translateX(-50%);transform-origin:left center}
+
+.legend-wrap{padding:6px 32px 8px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;flex-shrink:0}
+.legend-title{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-right:8px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--text2);cursor:pointer;padding:3px 8px;border-radius:4px;transition:all .15s;border:1px solid transparent}
+.legend-item:hover{color:#fff;background:var(--bg3)}
+.legend-item.dim{opacity:.3}
+.legend-item .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.search-highlight{position:absolute;pointer-events:none;z-index:6}
+.search-result-tag{position:absolute;z-index:7;pointer-events:none;background:var(--bg);border:1px solid var(--accent);border-radius:4px;padding:2px 8px;font-size:.65rem;color:var(--accent);font-family:'JetBrains Mono',monospace;white-space:nowrap;opacity:0;transition:opacity .3s}
+.search-result-tag.show{opacity:1}
+
+footer{text-align:center;padding:6px 32px 10px;font-size:.78rem;color:var(--text3);line-height:1.5;flex-shrink:0}
+footer a{color:var(--text2);text-decoration:none}
+footer a:hover{color:var(--accent)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.8);opacity:.4}}
+
+@media(max-width:768px){
+  header{padding:12px 16px 0}
+  .controls{padding:8px 16px}
+  .search-wrap{flex:1 1 100%}
+  .viz-container{margin:0 8px 0;border-radius:8px}
+  .legend-wrap{padding:4px 16px 6px}
+  .stats-bar{padding:0 16px 4px}
+  .brand h1{font-size:1.6rem}
+  .brand .sub{font-size:.85rem}
+  .q-label .big{font-size:.85rem}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header>
+  <div class="brand">
+    <h1>The AI Labor Map: <em>Displacement or Complementarity?</em></h1>
+    <div class="sub">How generative AI reshapes 911 U.S. occupations. Automation-prone jobs saw a <strong>-17% decline</strong> in postings, while augmentation-prone jobs saw a <span class="pos">+22% increase</span>.</div>
+  </div>
+  <div class="meta">
+    <div>Chen, Srinivasan &amp; Zakerinia</div>
+    <div><span>Harvard Business School</span> &middot; WP 25-039</div>
+    <div>Dec 2024</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Search occupations..." autocomplete="off" spellcheck="false">
+    <div class="search-dropdown" id="searchDropdown"></div>
+  </div>
+  <div style="position:relative">
+    <button class="filter-btn" id="filterBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Job Families
+      <span class="count" id="filterCount">13</span>
+    </button>
+    <div class="filter-panel" id="filterPanel"></div>
+  </div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat">Showing <span id="statVisible">911</span> of <span>911</span> occupations</div>
+  <div class="stat" id="statQuadrant"></div>
+</div>
+
+<div class="viz-container">
+  <div class="canvas-wrap" id="canvasWrap">
+    <canvas id="plotCanvas"></canvas>
+    <canvas id="overlayCanvas"></canvas>
+    <canvas id="hitCanvas"></canvas>
+    <div class="quadrant-labels">
+      <div class="q-label ur"><span class="big">High Reward</span>AI Augments</div>
+      <div class="q-label tl"><span class="big">Transforming</span>AI Reshapes</div>
+      <div class="q-label bl"><span class="big">High Risk</span>AI Displaces</div>
+      <div class="q-label br"><span class="big">Resilient</span>Low Exposure</div>
+    </div>
+    <div class="axis-label x">Automation Score &larr; HIGH &mdash;&mdash; LOW &rarr;</div>
+    <div class="axis-label y">Augmentation Score</div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tt-title"></div>
+  <div class="tt-family"><span class="dot"></span><span class="name"></span></div>
+  <div class="tt-scores">
+    <div class="tt-score auto"><div class="label">Automation</div><div class="val"></div></div>
+    <div class="tt-score aug"><div class="label">Augmentation</div><div class="val"></div></div>
+  </div>
+</div>
+
+<div class="legend-wrap" id="legendWrap">
+  <span class="legend-title">Families</span>
+</div>
+
+<footer>
+  Data: O*NET v25.1 + LightCast U.S. Job Postings &middot; Methodology: Eloundou et al. (2024) task-exposure + HHI augmentation index<br>
+  Source: <a href="#">"Displacement or Complementarity? The Labor Market Impact of Generative AI"</a> &middot; Harvard Business School Working Paper 25-039
+</footer>
+
+<script>
+const DATA=[{"a":0.09,"f":"Office support","t":"Correspondence clerks","x":0.86},{"a":0.28,"f":"Arts, sports and media","t":"Interpreters and translators","x":0.8},{"a":0.06,"f":"Office support","t":"Court, municipal, and license clerks","x":0.76},{"a":0.12,"f":"Health care","t":"Medical transcriptionists","x":0.74},{"a":0.3,"f":"Sales","t":"Telemarketers","x":0.73},{"a":0.26,"f":"Office support","t":"Order clerks","x":0.72},{"a":0.32,"f":"Office support","t":"Word processors and typists","x":0.72},{"a":0.0,"f":"Life, physical, and social science","t":"Climate change policy analysts","x":0.72},{"a":0.0,"f":"Business and finance","t":"Sustainability specialists","x":0.71},{"a":0.1,"f":"Office support","t":"Loan interviewers and clerks","x":0.7},{"a":0.24,"f":"Arts, sports and media","t":"Writers and authors","x":0.7},{"a":0.09,"f":"Office support","t":"Payroll and timekeeping clerks","x":0.7},{"a":0.13,"f":"Office support","t":"Bill and account collectors","x":0.7},{"a":0.12,"f":"Computer and math","t":"Software quality assurance analysts and testers","x":0.7},{"a":0.26,"f":"Business and finance","t":"Project management specialists","x":0.7},{"a":0.17,"f":"Business and finance","t":"Credit counselors","x":0.69},{"a":0.33,"f":"Arts, sports and media","t":"Poets, lyricists and creative writers","x":0.69},{"a":0.19,"f":"Office support","t":"Human resources assistants, except payroll and timekeeping","x":0.68},{"a":0.19,"f":"Office support","t":"Bookkeeping, accounting, and auditing clerks","x":0.68},{"a":0.14,"f":"Office support","t":"Insurance claims and policy processing clerks","x":0.68},{"a":0.29,"f":"Office support","t":"Executive secretaries and executive administrative assistants","x":0.68},{"a":0.33,"f":"Educational instruction","t":"Tutors","x":0.67},{"a":0.32,"f":"Sales","t":"Sales representatives of services, except advertising, insurance, financial services, and travel","x":0.67},{"a":0.08,"f":"Computer and math","t":"Clinical data managers","x":0.67},{"a":0.38,"f":"Office support","t":"Proofreaders and copy markers","x":0.66},{"a":0.23,"f":"Services and other","t":"Health education specialists","x":0.66},{"a":0.0,"f":"Computer and math","t":"Data warehousing specialists","x":0.66},{"a":0.31,"f":"Office support","t":"Medical secretaries and administrative assistants","x":0.66},{"a":0.17,"f":"Business and finance","t":"Training and development specialists","x":0.66},{"a":0.18,"f":"Office support","t":"Procurement clerks","x":0.66},{"a":0.19,"f":"Computer and math","t":"Web developers","x":0.65},{"a":0.13,"f":"Life, physical, and social science","t":"Physicists","x":0.65},{"a":0.07,"f":"Office support","t":"Freight forwarders","x":0.65},{"a":0.28,"f":"Office support","t":"Interviewers, except eligibility and loan","x":0.65},{"a":0.44,"f":"Computer and math","t":"Computer programmers","x":0.64},{"a":0.0,"f":"Computer and math","t":"Mathematicians","x":0.64},{"a":0.43,"f":"Office support","t":"Receptionists and information clerks","x":0.64},{"a":0.0,"f":"Computer and math","t":"Business intelligence analysts","x":0.64},{"a":0.18,"f":"Computer and math","t":"Information technology project managers","x":0.64},{"a":0.13,"f":"Health care","t":"Preventive medicine physicians","x":0.63},{"a":0.0,"f":"Life, physical, and social science","t":"Environmental economists","x":0.63},{"a":0.24,"f":"Sales","t":"Advertising sales agents","x":0.63},{"a":0.3,"f":"Office support","t":"Credit authorizers, checkers, and clerks","x":0.63},{"a":0.15,"f":"Management","t":"Training and development managers","x":0.63},{"a":0.07,"f":"Computer and math","t":"Biostatisticians","x":0.62},{"a":0.06,"f":"Computer and math","t":"Web and digital interface designers","x":0.62},{"a":0.16,"f":"Business and finance","t":"Tax preparers","x":0.62},{"a":0.31,"f":"Sales","t":"Sales representatives, wholesale and manufacturing, technical and scientific products","x":0.62},{"a":0.32,"f":"Office support","t":"Secretaries and administrative assistants, except legal, medical, and executive","x":0.62},{"a":0.15,"f":"Office support","t":"Dispatchers, except police, fire, and ambulance","x":0.62},{"a":0.05,"f":"Business and finance","t":"Regulatory affairs specialists","x":0.62},{"a":0.1,"f":"Computer and math","t":"Web administrators","x":0.61},{"a":0.3,"f":"Educational instruction","t":"Instructional coordinators","x":0.61},{"a":0.17,"f":"Computer and math","t":"Penetration testers","x":0.61},{"a":0.29,"f":"Management","t":"Clinical research coordinators","x":0.61},{"a":0.36,"f":"Arts, sports and media","t":"Public relations specialists","x":0.61},{"a":0.3,"f":"Office support","t":"Production, planning, and expediting clerks","x":0.6},{"a":0.08,"f":"Management","t":"Regulatory affairs managers","x":0.6},{"a":0.41,"f":"Office support","t":"Statistical assistants","x":0.6},{"a":0.45,"f":"Office support","t":"Office clerks, general","x":0.6},{"a":0.1,"f":"Computer and math","t":"Database architects","x":0.6},{"a":0.13,"f":"Management","t":"Wind energy development managers","x":0.6},{"a":0.0,"f":"Business and finance","t":"Business continuity planners","x":0.6},{"a":0.2,"f":"Legal","t":"Title examiners, abstractors, and searchers","x":0.59},{"a":0.18,"f":"Life, physical, and social science","t":"Historians","x":0.59},{"a":0.22,"f":"Health care","t":"Health information technologists and medical registrars","x":0.59},{"a":0.29,"f":"Office support","t":"Eligibility interviewers, government programs","x":0.59},{"a":0.34,"f":"Sales","t":"Solar sales representatives and assessors","x":0.59},{"a":0.16,"f":"Computer and math","t":"Document management specialists","x":0.59},{"a":0.11,"f":"Computer and math","t":"Blockchain engineers","x":0.59},{"a":0.4,"f":"Office support","t":"Shipping, receiving, and inventory clerks","x":0.59},{"a":0.32,"f":"Office support","t":"Brokerage clerks","x":0.59},{"a":0.24,"f":"Business and finance","t":"Credit analysts","x":0.58},{"a":0.3,"f":"Engineering","t":"Environmental engineers","x":0.58},{"a":0.26,"f":"Business and finance","t":"Human resources specialists","x":0.58},{"a":0.26,"f":"Sales","t":"Sales engineers","x":0.58},{"a":0.12,"f":"Management","t":"Chief sustainability officers","x":0.58},{"a":0.23,"f":"Management","t":"Spa managers","x":0.58},{"a":0.21,"f":"Business and finance","t":"Loan officers","x":0.58},{"a":0.25,"f":"Business and finance","t":"Fundraisers","x":0.58},{"a":0.0,"f":"Computer and math","t":"Statisticians","x":0.57},{"a":0.0,"f":"Computer and math","t":"Database administrators","x":0.57},{"a":0.0,"f":"Business and finance","t":"Financial risk specialists","x":0.57},{"a":0.2,"f":"Life, physical, and social science","t":"Survey researchers","x":0.57},{"a":0.19,"f":"Computer and math","t":"Bioinformatics technicians","x":0.57},{"a":0.14,"f":"Office support","t":"Customer service representatives","x":0.57},{"a":0.46,"f":"Arts, sports and media","t":"Court reporters and simultaneous captioners","x":0.57},{"a":0.24,"f":"Computer and math","t":"Computer systems analysts","x":0.57},{"a":0.46,"f":"Sales","t":"Counter and rental clerks","x":0.57},{"a":0.05,"f":"Business and finance","t":"Logistics analysts","x":0.57},{"a":0.0,"f":"Computer and math","t":"Information security engineers","x":0.57},{"a":0.42,"f":"Office support","t":"Reservation and transportation ticket agents and travel clerks","x":0.57},{"a":0.0,"f":"Business and finance","t":"Insurance underwriters","x":0.57},{"a":0.38,"f":"Sales","t":"Travel agents","x":0.56},{"a":0.11,"f":"Health care","t":"Medical records specialists","x":0.56},{"a":0.38,"f":"Management","t":"Fundraising managers","x":0.56},{"a":0.19,"f":"Sales","t":"Securities, commodities, and financial services sales agents","x":0.56},{"a":0.12,"f":"Computer and math","t":"Data scientists","x":0.56},{"a":0.12,"f":"Life, physical, and social science","t":"Political scientists","x":0.56},{"a":0.16,"f":"Engineering","t":"Bioengineers and biomedical engineers","x":0.56},{"a":0.12,"f":"Management","t":"Compliance managers","x":0.56},{"a":0.16,"f":"Life, physical, and social science","t":"Economists","x":0.56},{"a":0.04,"f":"Business and finance","t":"Search marketing strategists","x":0.56},{"a":0.38,"f":"Management","t":"Public relations managers","x":0.55},{"a":0.37,"f":"Life, physical, and social science","t":"Social science research assistants","x":0.55},{"a":0.22,"f":"Management","t":"Purchasing managers","x":0.55},{"a":0.26,"f":"Computer and math","t":"Digital forensics analysts","x":0.55},{"a":0.12,"f":"Business and finance","t":"Budget analysts","x":0.55},{"a":0.39,"f":"Office support","t":"First-line supervisors of office and administrative support workers","x":0.55},{"a":0.21,"f":"Health care","t":"Genetic counselors","x":0.55},{"a":0.31,"f":"Business and finance","t":"Labor relations specialists","x":0.55},{"a":0.37,"f":"Business and finance","t":"Meeting, convention, and event planners","x":0.54},{"a":0.34,"f":"Business and finance","t":"Online merchants","x":0.54},{"a":0.41,"f":"Arts, sports and media","t":"News analysts, reporters, and journalists","x":0.54},{"a":0.19,"f":"Life, physical, and social science","t":"Epidemiologists","x":0.54},{"a":0.39,"f":"Production, construction and transportation","t":"Recycling coordinators","x":0.54},{"a":0.25,"f":"Business and finance","t":"Personal financial advisors","x":0.54},{"a":0.29,"f":"Business and finance","t":"Customs brokers","x":0.54},{"a":0.26,"f":"Life, physical, and social science","t":"Atmospheric and space scientists","x":0.54},{"a":0.16,"f":"Life, physical, and social science","t":"Transportation planners","x":0.53},{"a":0.42,"f":"Office support","t":"Legal secretaries and administrative assistants","x":0.53},{"a":0.45,"f":"Legal","t":"Judicial law clerks","x":0.53},{"a":0.17,"f":"Life, physical, and social science","t":"Bioinformatics scientists","x":0.53},{"a":0.21,"f":"Management","t":"Brownfield redevelopment specialists and site managers","x":0.53},{"a":0.41,"f":"Educational instruction","t":"Librarians and media collections specialists","x":0.53},{"a":0.4,"f":"Arts, sports and media","t":"Editors","x":0.53},{"a":0.21,"f":"Engineering","t":"Manufacturing engineers","x":0.53},{"a":0.46,"f":"Arts, sports and media","t":"Broadcast announcers and radio disc jockeys","x":0.53},{"a":0.32,"f":"Management","t":"Wind energy operations managers","x":0.53},{"a":0.29,"f":"Engineering","t":"Validation engineers","x":0.53},{"a":0.45,"f":"Educational instruction","t":"Criminal justice and law enforcement teachers, postsecondary","x":0.53},{"a":0.09,"f":"Computer and math","t":"Health informatics specialists","x":0.53},{"a":0.04,"f":"Life, physical, and social science","t":"Industrial ecologists","x":0.53},{"a":0.24,"f":"Business and finance","t":"Market research analysts and marketing specialists","x":0.52},{"a":0.25,"f":"Engineering","t":"Energy engineers, except wind and solar","x":0.52},{"a":0.41,"f":"Services and other","t":"Community health workers","x":0.52},{"a":0.15,"f":"Life, physical, and social science","t":"Animal scientists","x":0.52},{"a":0.25,"f":"Business and finance","t":"Logisticians","x":0.52},{"a":0.39,"f":"Health care","t":"Speech-language pathology assistants","x":0.52},{"a":0.43,"f":"Office support","t":"Telephone operators","x":0.52},{"a":0.29,"f":"Computer and math","t":"Computer systems engineers/architects","x":0.52},{"a":0.31,"f":"Business and finance","t":"Purchasing agents, except wholesale, retail, and farm products","x":0.52},{"a":0.24,"f":"Computer and math","t":"Operations research analysts","x":0.52},{"a":0.46,"f":"Educational instruction","t":"Forestry and conservation science teachers, postsecondary","x":0.51},{"a":0.4,"f":"Life, physical, and social science","t":"Industrial-organizational psychologists","x":0.51},{"a":0.3,"f":"Business and finance","t":"Accountants and auditors","x":0.51},{"a":0.41,"f":"Services and other","t":"Concierges","x":0.51},{"a":0.31,"f":"Arts, sports and media","t":"Technical writers","x":0.51},{"a":0.42,"f":"Services and other","t":"Directors, religious activities and education","x":0.51},{"a":0.38,"f":"Business and finance","t":"Equal opportunity representatives and officers","x":0.51},{"a":0.16,"f":"Life, physical, and social science","t":"Environmental scientists and specialists, including health","x":0.5},{"a":0.34,"f":"Computer and math","t":"Telecommunications engineering specialists","x":0.5},{"a":0.48,"f":"Business and finance","t":"Compliance officers","x":0.5},{"a":0.32,"f":"Business and finance","t":"Tax examiners and collectors, and revenue agents","x":0.5},{"a":0.18,"f":"Business and finance","t":"Financial quantitative analysts","x":0.5},{"a":0.47,"f":"Educational instruction","t":"Library science teachers, postsecondary","x":0.5},{"a":0.2,"f":"Computer and math","t":"Actuaries","x":0.5},{"a":0.25,"f":"Business and finance","t":"Cost estimators","x":0.5},{"a":0.27,"f":"Computer and math","t":"Information security analysts","x":0.5},{"a":0.46,"f":"Management","t":"Entertainment and recreation managers, except gambling","x":0.5},{"a":0.39,"f":"Management","t":"Gambling managers","x":0.5},{"a":0.45,"f":"Health care","t":"Nurse midwives","x":0.5},{"a":0.4,"f":"Business and finance","t":"Management analysts","x":0.5},{"a":0.31,"f":"Business and finance","t":"Environmental compliance inspectors","x":0.5},{"a":0.47,"f":"Educational instruction","t":"English language and literature teachers, postsecondary","x":0.49},{"a":0.23,"f":"Services and other","t":"Intelligence analysts","x":0.49},{"a":0.34,"f":"Business and finance","t":"Compensation, benefits, and job analysis specialists","x":0.49},{"a":0.45,"f":"Educational instruction","t":"Philosophy and religion teachers, postsecondary","x":0.49},{"a":0.49,"f":"Computer and math","t":"Computer user support specialists","x":0.49},{"a":0.33,"f":"Computer and math","t":"Computer network architects","x":0.49},{"a":0.17,"f":"Management","t":"Supply chain managers","x":0.49},{"a":0.44,"f":"Health care","t":"Dietetic technicians","x":0.49},{"a":0.39,"f":"Management","t":"Natural sciences managers","x":0.49},{"a":0.24,"f":"Engineering","t":"Mechatronics engineers","x":0.49},{"a":0.39,"f":"Health care","t":"Dietitians and nutritionists","x":0.49},{"a":0.29,"f":"Management","t":"Industrial production managers","x":0.49},{"a":0.37,"f":"Health care","t":"Patient representatives","x":0.49},{"a":0.47,"f":"Office support","t":"File clerks","x":0.49},{"a":0.12,"f":"Business and finance","t":"Logistics engineers","x":0.49},{"a":0.24,"f":"Engineering","t":"Aerospace engineers","x":0.49},{"a":0.42,"f":"Sales","t":"Sales representatives, wholesale and manufacturing, except technical and scientific products","x":0.49},{"a":0.42,"f":"Services and other","t":"Marriage and family therapists","x":0.48},{"a":0.38,"f":"Sales","t":"Insurance sales agents","x":0.48},{"a":0.44,"f":"Educational instruction","t":"Economics teachers, postsecondary","x":0.48},{"a":0.42,"f":"Business and finance","t":"Fraud examiners, investigators and analysts","x":0.48},{"a":0.35,"f":"Business and finance","t":"Claims adjusters, examiners, and investigators","x":0.48},{"a":0.41,"f":"Office support","t":"Billing and posting clerks","x":0.48},{"a":0.42,"f":"Business and finance","t":"Security management specialists","x":0.48},{"a":0.37,"f":"Computer and math","t":"Video game designers","x":0.48},{"a":0.37,"f":"Engineering","t":"Electronics engineers, except computer","x":0.48},{"a":0.47,"f":"Educational instruction","t":"Atmospheric, earth, marine, and space sciences teachers, postsecondary","x":0.48},{"a":0.46,"f":"Educational instruction","t":"Recreation and fitness studies teachers, postsecondary","x":0.48},{"a":0.48,"f":"Office support","t":"New accounts clerks","x":0.48},{"a":0.29,"f":"Engineering","t":"Nanosystems engineers","x":0.48},{"a":0.5,"f":"Office support","t":"Switchboard operators, including answering service","x":0.48},{"a":0.29,"f":"Life, physical, and social science","t":"Environmental restoration planners","x":0.48},{"a":0.22,"f":"Engineering","t":"Automotive engineers","x":0.48},{"a":0.26,"f":"Management","t":"Biofuels/biodiesel technology and product development managers","x":0.48},{"a":0.32,"f":"Computer and math","t":"Network and computer systems administrators","x":0.47},{"a":0.45,"f":"Legal","t":"Paralegals and legal assistants","x":0.47},{"a":0.39,"f":"Management","t":"Emergency management directors","x":0.47},{"a":0.46,"f":"Educational instruction","t":"Architecture teachers, postsecondary","x":0.47},{"a":0.33,"f":"Life, physical, and social science","t":"Geneticists","x":0.47},{"a":0.24,"f":"Educational instruction","t":"Archivists","x":0.47},{"a":0.3,"f":"Management","t":"Compensation and benefits managers","x":0.47},{"a":0.46,"f":"Educational instruction","t":"Career/technical education teachers, postsecondary","x":0.47},{"a":0.44,"f":"Office support","t":"Public safety telecommunicators","x":0.47},{"a":0.29,"f":"Health care","t":"Nurse practitioners","x":0.47},{"a":0.4,"f":"Health care","t":"Clinical nurse specialists","x":0.47},{"a":0.31,"f":"Management","t":"Transportation, storage, and distribution managers","x":0.47},{"a":0.41,"f":"Life, physical, and social science","t":"Quality control analysts","x":0.47},{"a":0.43,"f":"Sales","t":"Real estate sales agents","x":0.47},{"a":0.48,"f":"Educational instruction","t":"Family and consumer sciences teachers, postsecondary","x":0.46},{"a":0.48,"f":"Educational instruction","t":"Environmental science teachers, postsecondary","x":0.46},{"a":0.38,"f":"Management","t":"Security managers","x":0.46},{"a":0.38,"f":"Health care","t":"Speech-language pathologists","x":0.46},{"a":0.38,"f":"Engineering","t":"Materials engineers","x":0.46},{"a":0.47,"f":"Management","t":"Postmasters and mail superintendents","x":0.46},{"a":0.39,"f":"Engineering","t":"Transportation engineers","x":0.46},{"a":0.48,"f":"Management","t":"Fitness and wellness coordinators","x":0.46},{"a":0.38,"f":"Engineering","t":"Robotics engineers","x":0.46},{"a":0.43,"f":"Office support","t":"Data entry keyers","x":0.46},{"a":0.41,"f":"Life, physical, and social science","t":"Medical scientists, except epidemiologists","x":0.46},{"a":0.4,"f":"Engineering","t":"Health and safety engineers, except mining safety engineers and inspectors","x":0.46},{"a":0.36,"f":"Engineering","t":"Fire-prevention and protection engineers","x":0.46},{"a":0.42,"f":"Management","t":"Quality control systems managers","x":0.46},{"a":0.44,"f":"Life, physical, and social science","t":"Biologists","x":0.46},{"a":0.32,"f":"Engineering","t":"Mechanical engineers","x":0.45},{"a":0.42,"f":"Educational instruction","t":"Library technicians","x":0.45},{"a":0.5,"f":"Services and other","t":"First-line supervisors of police and detectives","x":0.45},{"a":0.49,"f":"Educational instruction","t":"Foreign language and literature teachers, postsecondary","x":0.45},{"a":0.47,"f":"Educational instruction","t":"Law teachers, postsecondary","x":0.45},{"a":0.5,"f":"Sales","t":"Demonstrators and product promoters","x":0.45},{"a":0.48,"f":"Educational instruction","t":"Communications teachers, postsecondary","x":0.45},{"a":0.24,"f":"Management","t":"Investment fund managers","x":0.45},{"a":0.3,"f":"Management","t":"Water resource specialists","x":0.45},{"a":0.45,"f":"Management","t":"Geothermal production managers","x":0.45},{"a":0.49,"f":"Services and other","t":"First-line supervisors of entertainment and recreation workers, except gambling services","x":0.45},{"a":0.42,"f":"Educational instruction","t":"Farm and home management educators","x":0.45},{"a":0.36,"f":"Management","t":"Financial managers","x":0.45},{"a":0.41,"f":"Engineering","t":"Radio frequency identification device specialists","x":0.45},{"a":0.43,"f":"Legal","t":"Lawyers","x":0.45},{"a":0.49,"f":"Educational instruction","t":"Adult basic education, adult secondary education, and english as a second language instructors","x":0.45},{"a":0.33,"f":"Engineering","t":"Nuclear engineers","x":0.45},{"a":0.36,"f":"Management","t":"Treasurers and controllers","x":0.45},{"a":0.5,"f":"Educational instruction","t":"Chemistry teachers, postsecondary","x":0.45},{"a":0.28,"f":"Life, physical, and social science","t":"Soil and plant scientists","x":0.44},{"a":0.38,"f":"Life, physical, and social science","t":"Urban and regional planners","x":0.44},{"a":0.5,"f":"Educational instruction","t":"Education teachers, postsecondary","x":0.44},{"a":0.49,"f":"Educational instruction","t":"Anthropology and archeology teachers, postsecondary","x":0.44},{"a":0.44,"f":"Life, physical, and social science","t":"Clinical and counseling psychologists","x":0.44},{"a":0.5,"f":"Educational instruction","t":"History teachers, postsecondary","x":0.44},{"a":0.5,"f":"Services and other","t":"Travel guides","x":0.44},{"a":0.38,"f":"Engineering","t":"Industrial engineers","x":0.44},{"a":0.37,"f":"Engineering","t":"Geodetic surveyors","x":0.44},{"a":0.38,"f":"Life, physical, and social science","t":"Hydrologic technicians","x":0.44},{"a":0.48,"f":"Educational instruction","t":"Computer science teachers, postsecondary","x":0.44},{"a":0.45,"f":"Health care","t":"Hospitalists","x":0.44},{"a":0.4,"f":"Engineering","t":"Photonics engineers","x":0.44},{"a":0.36,"f":"Business and finance","t":"Financial and investment analysts","x":0.44},{"a":0.37,"f":"Management","t":"Computer and information systems managers","x":0.44},{"a":0.4,"f":"Life, physical, and social science","t":"Molecular and cellular biologists","x":0.44},{"a":0.48,"f":"Educational instruction","t":"Teaching assistants, postsecondary","x":0.43},{"a":0.41,"f":"Life, physical, and social science","t":"Neuropsychologists","x":0.43},{"a":0.43,"f":"Management","t":"Education administrators, postsecondary","x":0.43},{"a":0.41,"f":"Business and finance","t":"Appraisers of personal and business property","x":0.43},{"a":0.5,"f":"Services and other","t":"Clergy","x":0.43},{"a":0.5,"f":"Educational instruction","t":"Engineering teachers, postsecondary","x":0.43},{"a":0.44,"f":"Management","t":"Advertising and promotions managers","x":0.43},{"a":0.41,"f":"Production, construction and transportation","t":"Energy auditors","x":0.43},{"a":0.5,"f":"Services and other","t":"First-line supervisors of housekeeping and janitorial workers","x":0.43},{"a":0.48,"f":"Production, construction and transportation","t":"First-line supervisors of production and operating workers","x":0.43},{"a":0.48,"f":"Services and other","t":"Educational, guidance, and career counselors and advisors","x":0.43},{"a":0.46,"f":"Legal","t":"Administrative law judges, adjudicators, and hearing officers","x":0.43},{"a":0.45,"f":"Educational instruction","t":"Curators","x":0.43},{"a":0.46,"f":"Computer and math","t":"Computer network support specialists","x":0.43},{"a":0.49,"f":"Educational instruction","t":"Agricultural sciences teachers, postsecondary","x":0.43},{"a":0.3,"f":"Engineering","t":"Fuel cell engineers","x":0.43},{"a":0.5,"f":"Management","t":"Lodging managers","x":0.43},{"a":0.49,"f":"Services and other","t":"Social and human service assistants","x":0.43},{"a":0.37,"f":"Management","t":"Human resources managers","x":0.43},{"a":0.5,"f":"Educational instruction","t":"Area, ethnic, and cultural studies teachers, postsecondary","x":0.42},{"a":0.5,"f":"Educational instruction","t":"Geography teachers, postsecondary","x":0.42},{"a":0.42,"f":"Engineering","t":"Microsystems engineers","x":0.42},{"a":0.42,"f":"Engineering","t":"Solar energy systems engineers","x":0.42},{"a":0.5,"f":"Educational instruction","t":"Health specialties teachers, postsecondary","x":0.42},{"a":0.5,"f":"Production, construction and transportation","t":"First-line supervisors of passenger attendants","x":0.42},{"a":0.5,"f":"Educational instruction","t":"Social work teachers, postsecondary","x":0.42},{"a":0.5,"f":"Health care","t":"Pharmacy aides","x":0.42},{"a":0.5,"f":"Educational instruction","t":"Sociology teachers, postsecondary","x":0.42},{"a":0.43,"f":"Computer and math","t":"Software developers","x":0.42},{"a":0.38,"f":"Business and finance","t":"Buyers and purchasing agents, farm products","x":0.42},{"a":0.47,"f":"Life, physical, and social science","t":"Park naturalists","x":0.42},{"a":0.49,"f":"Management","t":"Farmers, ranchers, and other agricultural managers","x":0.42},{"a":0.49,"f":"Production, construction and transportation","t":"Computer numerically controlled tool programmers","x":0.42},{"a":0.45,"f":"Engineering","t":"Computer hardware engineers","x":0.42},{"a":0.47,"f":"Management","t":"Education and childcare administrators, preschool and daycare","x":0.42},{"a":0.45,"f":"Management","t":"Food service managers","x":0.42},{"a":0.47,"f":"Educational instruction","t":"Political science teachers, postsecondary","x":0.42},{"a":0.38,"f":"Management","t":"Marketing managers","x":0.42},{"a":0.38,"f":"Business and finance","t":"Wholesale and retail buyers, except farm products","x":0.42},{"a":0.47,"f":"Health care","t":"Neurologists","x":0.42},{"a":0.28,"f":"Sales","t":"Real estate brokers","x":0.42},{"a":0.48,"f":"Life, physical, and social science","t":"Occupational health and safety technicians","x":0.42},{"a":0.27,"f":"Computer and math","t":"Geographic information systems technologists and technicians","x":0.42},{"a":0.33,"f":"Life, physical, and social science","t":"Hydrologists","x":0.42},{"a":0.35,"f":"Management","t":"Sales managers","x":0.42},{"a":0.34,"f":"Engineering","t":"Water/wastewater engineers","x":0.41},{"a":0.5,"f":"Office support","t":"Gambling cage workers","x":0.41},{"a":0.46,"f":"Management","t":"Construction managers","x":0.41},{"a":0.35,"f":"Business and finance","t":"Financial examiners","x":0.41},{"a":0.48,"f":"Sales","t":"First-line supervisors of non-retail sales workers","x":0.41},{"a":0.45,"f":"Life, physical, and social science","t":"Sociologists","x":0.41},{"a":0.42,"f":"Health care","t":"Radiologists","x":0.41},{"a":0.49,"f":"Health care","t":"Psychiatrists","x":0.41},{"a":0.42,"f":"Life, physical, and social science","t":"Materials scientists","x":0.41},{"a":0.49,"f":"Office support","t":"Hotel, motel, and resort desk clerks","x":0.41},{"a":0.5,"f":"Educational instruction","t":"Business teachers, postsecondary","x":0.41},{"a":0.4,"f":"Management","t":"Medical and health services managers","x":0.41},{"a":0.39,"f":"Business and finance","t":"Appraisers and assessors of real estate","x":0.41},{"a":0.5,"f":"Educational instruction","t":"Physics teachers, postsecondary","x":0.41},{"a":0.43,"f":"Life, physical, and social science","t":"Astronomers","x":0.41},{"a":0.47,"f":"Management","t":"Hydroelectric production managers","x":0.41},{"a":0.47,"f":"Health care","t":"Allergists and immunologists","x":0.4},{"a":0.41,"f":"Engineering","t":"Petroleum engineers","x":0.4},{"a":0.5,"f":"Health care","t":"Personal care aides","x":0.4},{"a":0.4,"f":"Engineering","t":"Human factors engineers and ergonomists","x":0.4},{"a":0.48,"f":"Sales","t":"First-line supervisors of retail sales workers","x":0.4},{"a":0.48,"f":"Services and other","t":"First-line supervisors of food preparation and serving workers","x":0.4},{"a":0.48,"f":"Management","t":"Architectural and engineering managers","x":0.4},{"a":0.4,"f":"Life, physical, and social science","t":"Foresters","x":0.4},{"a":0.49,"f":"Educational instruction","t":"Psychology teachers, postsecondary","x":0.4},{"a":0.49,"f":"Health care","t":"Audiologists","x":0.4},{"a":0.45,"f":"Life, physical, and social science","t":"Biochemists and biophysicists","x":0.4},{"a":0.49,"f":"Business and finance","t":"Agents and business managers of artists, performers, and athletes","x":0.4},{"a":0.39,"f":"Computer and math","t":"Computer and information research scientists","x":0.4},{"a":0.26,"f":"Life, physical, and social science","t":"Remote sensing scientists and technologists","x":0.4},{"a":0.43,"f":"Engineering","t":"Environmental engineering technologists and technicians","x":0.4},{"a":0.43,"f":"Engineering","t":"Industrial engineering technologists and technicians","x":0.4},{"a":0.47,"f":"Health care","t":"Naturopathic physicians","x":0.4},{"a":0.41,"f":"Management","t":"General and operations managers","x":0.39},{"a":0.41,"f":"Engineering","t":"Chemical engineers","x":0.39},{"a":0.5,"f":"Health care","t":"Family medicine physicians","x":0.39},{"a":0.49,"f":"Management","t":"Funeral home managers","x":0.39},{"a":0.5,"f":"Health care","t":"Athletic trainers","x":0.39},{"a":0.5,"f":"Health care","t":"Pharmacy technicians","x":0.39},{"a":0.5,"f":"Services and other","t":"Morticians, undertakers, and funeral arrangers","x":0.39},{"a":0.5,"f":"Health care","t":"Pediatricians, general","x":0.39},{"a":0.49,"f":"Management","t":"Property, real estate, and community association managers","x":0.39},{"a":0.49,"f":"Management","t":"Administrative services managers","x":0.39},{"a":0.5,"f":"Educational instruction","t":"Middle school teachers, except special and career/technical education","x":0.39},{"a":0.49,"f":"Educational instruction","t":"Art, drama, and music teachers, postsecondary","x":0.39},{"a":0.46,"f":"Health care","t":"Pharmacists","x":0.39},{"a":0.49,"f":"Life, physical, and social science","t":"Zoologists and wildlife biologists","x":0.39},{"a":0.47,"f":"Health care","t":"Acupuncturists","x":0.39},{"a":0.48,"f":"Services and other","t":"Probation officers and correctional treatment specialists","x":0.39},{"a":0.35,"f":"Life, physical, and social science","t":"Geographers","x":0.38},{"a":0.49,"f":"Services and other","t":"First-line supervisors of security workers","x":0.38},{"a":0.32,"f":"Life, physical, and social science","t":"Precision agriculture technicians","x":0.38},{"a":0.49,"f":"Office support","t":"Cargo and freight agents","x":0.38},{"a":0.5,"f":"Office support","t":"Meter readers, utilities","x":0.38},{"a":0.48,"f":"Educational instruction","t":"Secondary school teachers, except special and career/technical education","x":0.38},{"a":0.5,"f":"Services and other","t":"First-line supervisors of personal service workers","x":0.38},{"a":0.39,"f":"Life, physical, and social science","t":"Geoscientists, except hydrologists and geographers","x":0.38},{"a":0.39,"f":"Life, physical, and social science","t":"Remote sensing technicians","x":0.38},{"a":0.48,"f":"Health care","t":"Physicians, pathologists","x":0.38},{"a":0.5,"f":"Services and other","t":"Shampooers","x":0.38},{"a":0.5,"f":"Production, construction and transportation","t":"Traffic technicians","x":0.38},{"a":0.5,"f":"Educational instruction","t":"Biological science teachers, postsecondary","x":0.37},{"a":0.49,"f":"Business and finance","t":"Insurance appraisers, auto damage","x":0.37},{"a":0.44,"f":"Engineering","t":"Civil engineers","x":0.37},{"a":0.49,"f":"Health care","t":"Sports medicine physicians","x":0.37},{"a":0.47,"f":"Engineering","t":"Mining and geological engineers, including mining safety engineers","x":0.37},{"a":0.46,"f":"Life, physical, and social science","t":"School psychologists","x":0.37},{"a":0.48,"f":"Management","t":"Chief executives","x":0.37},{"a":0.49,"f":"Management","t":"Social and community service managers","x":0.37},{"a":0.46,"f":"Arts, sports and media","t":"Music directors and composers","x":0.37},{"a":0.44,"f":"Life, physical, and social science","t":"Conservation scientists","x":0.37},{"a":0.5,"f":"Engineering","t":"Architects, except landscape and naval","x":0.37},{"a":0.5,"f":"Health care","t":"Chiropractors","x":0.37},{"a":0.49,"f":"Production, construction and transportation","t":"Transportation inspectors","x":0.37},{"a":0.5,"f":"Educational instruction","t":"Self-enrichment teachers","x":0.36},{"a":0.5,"f":"Production, construction and transportation","t":"First-line supervisors of material-moving machine and vehicle operators","x":0.36},{"a":0.49,"f":"Health care","t":"Obstetricians and gynecologists","x":0.36},{"a":0.49,"f":"Office support","t":"Tellers","x":0.36},{"a":0.44,"f":"Engineering","t":"Electrical engineers","x":0.36},{"a":0.5,"f":"Office support","t":"Library assistants, clerical","x":0.36},{"a":0.5,"f":"Educational instruction","t":"Nursing instructors and teachers, postsecondary","x":0.36},{"a":0.5,"f":"Services and other","t":"Fish and game wardens","x":0.35},{"a":0.48,"f":"Management","t":"Loss prevention managers","x":0.35},{"a":0.47,"f":"Production, construction and transportation","t":"Shuttle drivers and chauffeurs","x":0.35},{"a":0.5,"f":"Services and other","t":"First-line supervisors of mechanics, installers, and repairers","x":0.35},{"a":0.5,"f":"Services and other","t":"First-line supervisors of landscaping, lawn service, and groundskeeping workers","x":0.35},{"a":0.49,"f":"Engineering","t":"Mechanical engineering technologists and technicians","x":0.35},{"a":0.5,"f":"Management","t":"Legislators","x":0.35},{"a":0.5,"f":"Services and other","t":"Hosts and hostesses, restaurant, lounge, and coffee shop","x":0.35},{"a":0.42,"f":"Life, physical, and social science","t":"Range managers","x":0.35},{"a":0.49,"f":"Services and other","t":"Animal control workers","x":0.35},{"a":0.5,"f":"Health care","t":"Art therapists","x":0.35},{"a":0.5,"f":"Arts, sports and media","t":"Coaches and scouts","x":0.35},{"a":0.5,"f":"Health care","t":"Midwives","x":0.35},{"a":0.5,"f":"Educational instruction","t":"Career/technical education teachers, secondary school","x":0.34},{"a":0.48,"f":"Life, physical, and social science","t":"Food scientists and technologists","x":0.34},{"a":0.5,"f":"Services and other","t":"First-line supervisors of gambling services workers","x":0.34},{"a":0.5,"f":"Engineering","t":"Robotics technicians","x":0.34},{"a":0.5,"f":"Sales","t":"Retail salespersons","x":0.34},{"a":0.49,"f":"Health care","t":"Advanced practice psychiatric nurses","x":0.34},{"a":0.49,"f":"Services and other","t":"Coin, vending, and amusement machine servicers and repairers","x":0.34},{"a":0.49,"f":"Educational instruction","t":"Career/technical education teachers, middle school","x":0.34},{"a":0.5,"f":"Educational instruction","t":"Mathematical science teachers, postsecondary","x":0.34},{"a":0.47,"f":"Engineering","t":"Wind energy engineers","x":0.34},{"a":0.47,"f":"Services and other","t":"Health care social workers","x":0.34},{"a":0.5,"f":"Legal","t":"Arbitrators, mediators, and conciliators","x":0.34},{"a":0.49,"f":"Arts, sports and media","t":"Producers and directors","x":0.34},{"a":0.49,"f":"Educational instruction","t":"Adapted physical education specialists","x":0.33},{"a":0.5,"f":"Services and other","t":"Retail loss prevention specialists","x":0.33},{"a":0.49,"f":"Sales","t":"Parts salespersons","x":0.33},{"a":0.5,"f":"Production, construction and transportation","t":"First-line supervisors of helpers, laborers, and material movers, hand","x":0.33},{"a":0.48,"f":"Production, construction and transportation","t":"Driver/sales workers","x":0.33},{"a":0.48,"f":"Production, construction and transportation","t":"Solar energy installation managers","x":0.33},{"a":0.5,"f":"Engineering","t":"Agricultural engineers","x":0.33},{"a":0.5,"f":"Services and other","t":"Mental health and substance abuse social workers","x":0.33},{"a":0.5,"f":"Management","t":"Education administrators, kindergarten through secondary","x":0.33},{"a":0.48,"f":"Engineering","t":"Marine engineers and naval architects","x":0.33},{"a":0.5,"f":"Life, physical, and social science","t":"Environmental science and protection technicians, including health","x":0.33},{"a":0.49,"f":"Production, construction and transportation","t":"Stockers and order fillers","x":0.33},{"a":0.48,"f":"Services and other","t":"Rehabilitation counselors","x":0.33},{"a":0.5,"f":"Health care","t":"Medical dosimetrists","x":0.32},{"a":0.48,"f":"Services and other","t":"Detectives and criminal investigators","x":0.32},{"a":0.49,"f":"Production, construction and transportation","t":"Transportation vehicle, equipment and systems inspectors, except aviation","x":0.32},{"a":0.49,"f":"Health care","t":"Occupational therapists","x":0.32},{"a":0.49,"f":"Health care","t":"Exercise physiologists","x":0.32},{"a":0.46,"f":"Engineering","t":"Surveying and mapping technicians","x":0.32},{"a":0.5,"f":"Engineering","t":"Civil engineering technologists and technicians","x":0.32},{"a":0.45,"f":"Services and other","t":"Tour guides and escorts","x":0.32},{"a":0.5,"f":"Health care","t":"Registered nurses","x":0.32},{"a":0.5,"f":"Management","t":"Facilities managers","x":0.32},{"a":0.5,"f":"Life, physical, and social science","t":"Biological technicians","x":0.32},{"a":0.5,"f":"Management","t":"Biomass power plant managers","x":0.32},{"a":0.43,"f":"Services and other","t":"Cooks, private household","x":0.32},{"a":0.49,"f":"Health care","t":"Cytogenetic technologists","x":0.31},{"a":0.49,"f":"Services and other","t":"Customs and border protection officers","x":0.31},{"a":0.5,"f":"Health care","t":"General internal medicine physicians","x":0.31},{"a":0.47,"f":"Engineering","t":"Landscape architects","x":0.31},{"a":0.5,"f":"Life, physical, and social science","t":"Geological technicians, except hydrologic technicians","x":0.31},{"a":0.49,"f":"Health care","t":"Pediatric surgeons","x":0.31},{"a":0.45,"f":"Sales","t":"Door-to-door sales workers, news and street vendors, and related workers","x":0.31},{"a":0.5,"f":"Life, physical, and social science","t":"Occupational health and safety specialists","x":0.31},{"a":0.5,"f":"Production, construction and transportation","t":"First-line supervisors of construction trades and extraction workers","x":0.3},{"a":0.46,"f":"Arts, sports and media","t":"Umpires, referees, and other sports officials","x":0.3},{"a":0.49,"f":"Health care","t":"Orthoptists","x":0.3},{"a":0.5,"f":"Arts, sports and media","t":"Media programming directors","x":0.3},{"a":0.5,"f":"Services and other","t":"First-line supervisors of firefighting and prevention workers","x":0.3},{"a":0.49,"f":"Engineering","t":"Nanotechnology engineering technologists and technicians","x":0.3},{"a":0.5,"f":"Services and other","t":"Mental health counselors","x":0.3},{"a":0.5,"f":"Life, physical, and social science","t":"Chemists","x":0.3},{"a":0.5,"f":"Health care","t":"Podiatrists","x":0.3},{"a":0.5,"f":"Services and other","t":"Child, family, and school social workers","x":0.3},{"a":0.49,"f":"Production, construction and transportation","t":"Airfield operations specialists","x":0.3},{"a":0.5,"f":"Engineering","t":"Electrical and electronic engineering technologists and technicians","x":0.3},{"a":0.46,"f":"Services and other","t":"Exercise trainers and group fitness instructors","x":0.3},{"a":0.5,"f":"Health care","t":"Physician assistants","x":0.3},{"a":0.49,"f":"Business and finance","t":"Government property inspectors and investigators","x":0.3},{"a":0.48,"f":"Educational instruction","t":"Elementary school teachers, except special education","x":0.3},{"a":0.47,"f":"Life, physical, and social science","t":"Forest and conservation technicians","x":0.29},{"a":0.44,"f":"Health care","t":"Dental assistants","x":0.29},{"a":0.42,"f":"Production, construction and transportation","t":"Bus drivers, school","x":0.29},{"a":0.49,"f":"Arts, sports and media","t":"Audio and video technicians","x":0.29},{"a":0.49,"f":"Life, physical, and social science","t":"Anthropologists and archeologists","x":0.29},{"a":0.5,"f":"Life, physical, and social science","t":"Microbiologists","x":0.29},{"a":0.41,"f":"Arts, sports and media","t":"Talent directors","x":0.29},{"a":0.47,"f":"Arts, sports and media","t":"Disc jockeys, except radio","x":0.29},{"a":0.48,"f":"Health care","t":"Medical assistants","x":0.29},{"a":0.45,"f":"Production, construction and transportation","t":"Weatherization installers and technicians","x":0.29},{"a":0.5,"f":"Management","t":"Biofuels production managers","x":0.28},{"a":0.48,"f":"Services and other","t":"Residential advisors","x":0.28},{"a":0.49,"f":"Services and other","t":"Chefs and head cooks","x":0.28},{"a":0.5,"f":"Health care","t":"Music therapists","x":0.28},{"a":0.43,"f":"Production, construction and transportation","t":"Inspectors, testers, sorters, samplers, and weighers","x":0.28},{"a":0.49,"f":"Health care","t":"Dermatologists","x":0.28},{"a":0.5,"f":"Life, physical, and social science","t":"Clinical neuropsychologists","x":0.28},{"a":0.47,"f":"Services and other","t":"Forest fire inspectors and prevention specialists","x":0.28},{"a":0.46,"f":"Services and other","t":"Computer, automated teller, and office machine repairers","x":0.28},{"a":0.43,"f":"Office support","t":"Postal service mail carriers","x":0.27},{"a":0.5,"f":"Engineering","t":"Surveyors","x":0.27},{"a":0.47,"f":"Production, construction and transportation","t":"Nuclear power reactor operators","x":0.27},{"a":0.47,"f":"Services and other","t":"Electrical and electronics repairers, commercial and industrial equipment","x":0.27},{"a":0.44,"f":"Health care","t":"Occupational therapy aides","x":0.27},{"a":0.4,"f":"Services and other","t":"Amusement and recreation attendants","x":0.27},{"a":0.49,"f":"Health care","t":"Acute care nurses","x":0.27},{"a":0.5,"f":"Health care","t":"Ophthalmologists, except pediatric","x":0.27},{"a":0.5,"f":"Production, construction and transportation","t":"Air traffic controllers","x":0.27},{"a":0.42,"f":"Health care","t":"Psychiatric technicians","x":0.27},{"a":0.44,"f":"Office support","t":"Weighers, measurers, checkers, and samplers, recordkeeping","x":0.27},{"a":0.5,"f":"Production, construction and transportation","t":"Power distributors and dispatchers","x":0.27},{"a":0.47,"f":"Educational instruction","t":"Special education teachers, middle school","x":0.27},{"a":0.49,"f":"Health care","t":"Recreational therapists","x":0.27},{"a":0.48,"f":"Life, physical, and social science","t":"Food science technicians","x":0.27},{"a":0.41,"f":"Office support","t":"Postal service clerks","x":0.26},{"a":0.45,"f":"Health care","t":"Opticians, dispensing","x":0.26},{"a":0.45,"f":"Production, construction and transportation","t":"Aircraft cargo handling supervisors","x":0.26},{"a":0.39,"f":"Sales","t":"Models","x":0.26},{"a":0.47,"f":"Health care","t":"Physical therapists","x":0.26},{"a":0.38,"f":"Services and other","t":"Gambling surveillance officers and gambling investigators","x":0.26},{"a":0.43,"f":"Health care","t":"Veterinary assistants and laboratory animal caretakers","x":0.25},{"a":0.49,"f":"Services and other","t":"Private detectives and investigators","x":0.25},{"a":0.49,"f":"Engineering","t":"Electro-mechanical and mechatronics technologists and technicians","x":0.25},{"a":0.46,"f":"Services and other","t":"Fire inspectors and investigators","x":0.25},{"a":0.38,"f":"Arts, sports and media","t":"Actors","x":0.25},{"a":0.49,"f":"Health care","t":"Urologists","x":0.25},{"a":0.47,"f":"Production, construction and transportation","t":"Railroad conductors and yardmasters","x":0.25},{"a":0.49,"f":"Life, physical, and social science","t":"Chemical technicians","x":0.25},{"a":0.43,"f":"Health care","t":"Occupational therapy assistants","x":0.25},{"a":0.48,"f":"Health care","t":"Emergency medicine physicians","x":0.24},{"a":0.41,"f":"Services and other","t":"Costume attendants","x":0.24},{"a":0.46,"f":"Educational instruction","t":"Special education teachers, secondary school","x":0.24},{"a":0.36,"f":"Production, construction and transportation","t":"Gas compressor and gas pumping station operators","x":0.24},{"a":0.47,"f":"Life, physical, and social science","t":"Nuclear monitoring technicians","x":0.24},{"a":0.42,"f":"Production, construction and transportation","t":"Refuse and recyclable material collectors","x":0.24},{"a":0.42,"f":"Office support","t":"Couriers and messengers","x":0.24},{"a":0.45,"f":"Health care","t":"Nuclear medicine technologists","x":0.24},{"a":0.37,"f":"Production, construction and transportation","t":"Subway and streetcar operators","x":0.24},{"a":0.48,"f":"Services and other","t":"Substance abuse and behavioral disorder counselors","x":0.24},{"a":0.47,"f":"Health care","t":"Low vision therapists, orientation and mobility specialists, and vision rehabilitation therapists","x":0.24},{"a":0.46,"f":"Services and other","t":"Industrial machinery mechanics","x":0.24},{"a":0.41,"f":"Services and other","t":"Animal caretakers","x":0.24},{"a":0.44,"f":"Engineering","t":"Non-destructive testing specialists","x":0.23},{"a":0.44,"f":"Health care","t":"Veterinarians","x":0.23},{"a":0.44,"f":"Production, construction and transportation","t":"Aviation inspectors","x":0.23},{"a":0.44,"f":"Production, construction and transportation","t":"Airline pilots, copilots, and flight engineers","x":0.23},{"a":0.42,"f":"Services and other","t":"First-line supervisors of correctional officers","x":0.23},{"a":0.43,"f":"Educational instruction","t":"Kindergarten teachers, except special education","x":0.23},{"a":0.4,"f":"Services and other","t":"Audiovisual equipment installers and repairers","x":0.23},{"a":0.42,"f":"Educational instruction","t":"Special education teachers, elementary school","x":0.23},{"a":0.36,"f":"Services and other","t":"Baggage porters and bellhops","x":0.23},{"a":0.44,"f":"Services and other","t":"Electrical and electronics repairers, powerhouse, substation, and relay","x":0.23},{"a":0.44,"f":"Engineering","t":"Calibration technologists and technicians","x":0.23},{"a":0.46,"f":"Health care","t":"Anesthesiologists","x":0.23},{"a":0.43,"f":"Services and other","t":"Telecommunications equipment installers and repairers, except line installers","x":0.23},{"a":0.48,"f":"Health care","t":"Orthopedic surgeons, except pediatric","x":0.23},{"a":0.46,"f":"Services and other","t":"Medical equipment repairers","x":0.23},{"a":0.39,"f":"Educational instruction","t":"Teaching assistants, preschool, elementary, middle, and secondary school, except special education","x":0.23},{"a":0.38,"f":"Production, construction and transportation","t":"Chemical equipment operators and tenders","x":0.22},{"a":0.42,"f":"Health care","t":"Massage therapists","x":0.22},{"a":0.49,"f":"Engineering","t":"Automotive engineering technicians","x":0.22},{"a":0.38,"f":"Production, construction and transportation","t":"Taxi drivers","x":0.22},{"a":0.39,"f":"Services and other","t":"Parking enforcement workers","x":0.22},{"a":0.42,"f":"Health care","t":"Diagnostic medical sonographers","x":0.22},{"a":0.43,"f":"Health care","t":"Neurodiagnostic technologists","x":0.22},{"a":0.43,"f":"Health care","t":"Medical and clinical laboratory technologists","x":0.22},{"a":0.43,"f":"Life, physical, and social science","t":"Agricultural technicians","x":0.22},{"a":0.45,"f":"Health care","t":"Cardiologists","x":0.21},{"a":0.38,"f":"Health care","t":"Emergency medical technicians","x":0.21},{"a":0.45,"f":"Production, construction and transportation","t":"Commercial pilots","x":0.21},{"a":0.44,"f":"Legal","t":"Judges, magistrate judges, and magistrates","x":0.21},{"a":0.36,"f":"Health care","t":"Respiratory therapists","x":0.21},{"a":0.36,"f":"Office support","t":"Office machine operators, except computer","x":0.21},{"a":0.43,"f":"Health care","t":"Optometrists","x":0.21},{"a":0.42,"f":"Educational instruction","t":"Special education teachers, preschool","x":0.21},{"a":0.37,"f":"Production, construction and transportation","t":"Automotive and watercraft service attendants","x":0.21},{"a":0.35,"f":"Services and other","t":"Correctional officers and jailers","x":0.21},{"a":0.45,"f":"Health care","t":"Dentists, general","x":0.21},{"a":0.42,"f":"Services and other","t":"Recreation workers","x":0.21},{"a":0.34,"f":"Production, construction and transportation","t":"Bridge and lock tenders","x":0.21},{"a":0.37,"f":"Services and other","t":"Home appliance repairers","x":0.21},{"a":0.36,"f":"Educational instruction","t":"Teaching assistants, special education","x":0.2},{"a":0.39,"f":"Educational instruction","t":"Special education teachers, kindergarten","x":0.2},{"a":0.36,"f":"Health care","t":"Cardiovascular technologists and technicians","x":0.2},{"a":0.44,"f":"Health care","t":"Physical medicine and rehabilitation physicians","x":0.2},{"a":0.5,"f":"Arts, sports and media","t":"Interior designers","x":0.2},{"a":0.34,"f":"Services and other","t":"Manicurists and pedicurists","x":0.2},{"a":0.42,"f":"Health care","t":"Orthodontists","x":0.2},{"a":0.32,"f":"Health care","t":"Medical equipment preparers","x":0.2},{"a":0.37,"f":"Production, construction and transportation","t":"Butchers and meat cutters","x":0.2},{"a":0.5,"f":"Office support","t":"Desktop publishers","x":0.2},{"a":0.41,"f":"Health care","t":"Nurse anesthetists","x":0.2},{"a":0.32,"f":"Services and other","t":"Childcare workers","x":0.2},{"a":0.36,"f":"Production, construction and transportation","t":"Heavy and tractor-trailer truck drivers","x":0.2},{"a":0.4,"f":"Services and other","t":"Cooks, institution and cafeteria","x":0.2},{"a":0.41,"f":"Arts, sports and media","t":"Musicians and singers","x":0.2},{"a":0.5,"f":"Arts, sports and media","t":"Commercial and industrial designers","x":0.19},{"a":0.47,"f":"Production, construction and transportation","t":"Solar photovoltaic installers","x":0.19},{"a":0.31,"f":"Services and other","t":"Bailiffs","x":0.19},{"a":0.35,"f":"Production, construction and transportation","t":"Textile cutting machine setters, operators, and tenders","x":0.19},{"a":0.48,"f":"Arts, sports and media","t":"Set and exhibit designers","x":0.19},{"a":0.38,"f":"Health care","t":"Magnetic resonance imaging technologists","x":0.19},{"a":0.38,"f":"Services and other","t":"Police and sheriff's patrol officers","x":0.19},{"a":0.4,"f":"Production, construction and transportation","t":"Team assemblers","x":0.19},{"a":0.36,"f":"Health care","t":"Radiologic technologists and technicians","x":0.19},{"a":0.3,"f":"Production, construction and transportation","t":"Coil winders, tapers, and finishers","x":0.19},{"a":0.43,"f":"Services and other","t":"Wind turbine service technicians","x":0.19},{"a":0.41,"f":"Services and other","t":"Barbers","x":0.19},{"a":0.35,"f":"Services and other","t":"Waiters and waitresses","x":0.19},{"a":0.37,"f":"Health care","t":"Orthotists and prosthetists","x":0.18},{"a":0.42,"f":"Engineering","t":"Electrical and electronics drafters","x":0.18},{"a":0.44,"f":"Life, physical, and social science","t":"Nuclear technicians","x":0.18},{"a":0.4,"f":"Educational instruction","t":"Museum technicians and conservators","x":0.18},{"a":0.37,"f":"Production, construction and transportation","t":"Petroleum pump system operators, refinery operators, and gaugers","x":0.18},{"a":0.38,"f":"Business and finance","t":"Coroners","x":0.18},{"a":0.36,"f":"Production, construction and transportation","t":"Stationary engineers and boiler operators","x":0.18},{"a":0.35,"f":"Services and other","t":"Funeral attendants","x":0.18},{"a":0.32,"f":"Production, construction and transportation","t":"Textile knitting and weaving machine setters, operators, and tenders","x":0.18},{"a":0.29,"f":"Production, construction and transportation","t":"Food cooking machine operators and tenders","x":0.18},{"a":0.34,"f":"Services and other","t":"Farm equipment mechanics and service technicians","x":0.18},{"a":0.33,"f":"Services and other","t":"Transit and railroad police","x":0.18},{"a":0.33,"f":"Production, construction and transportation","t":"Chemical plant and system operators","x":0.18},{"a":0.29,"f":"Health care","t":"Psychiatric aides","x":0.18},{"a":0.33,"f":"Health care","t":"Home health aides","x":0.18},{"a":0.5,"f":"Engineering","t":"Cartographers and photogrammetrists","x":0.18},{"a":0.29,"f":"Production, construction and transportation","t":"Ship engineers","x":0.18},{"a":0.36,"f":"Production, construction and transportation","t":"Electrical and electronic equipment assemblers","x":0.17},{"a":0.39,"f":"Production, construction and transportation","t":"Machinists","x":0.17},{"a":0.38,"f":"Production, construction and transportation","t":"Printing press operators","x":0.17},{"a":0.35,"f":"Educational instruction","t":"Substitute teachers, short-term","x":0.17},{"a":0.32,"f":"Production, construction and transportation","t":"Bus drivers, transit and intercity","x":0.17},{"a":0.4,"f":"Sales","t":"Gambling change persons and booth cashiers","x":0.17},{"a":0.28,"f":"Services and other","t":"Locker room, coatroom, and dressing room attendants","x":0.17},{"a":0.36,"f":"Health care","t":"Critical care nurses","x":0.17},{"a":0.28,"f":"Services and other","t":"Crematory operators","x":0.17},{"a":0.45,"f":"Engineering","t":"Aerospace engineering and operations technologists and technicians","x":0.17},{"a":0.42,"f":"Services and other","t":"Geothermal technicians","x":0.17},{"a":0.31,"f":"Services and other","t":"Watch and clock repairers","x":0.16},{"a":0.4,"f":"Health care","t":"Radiation therapists","x":0.16},{"a":0.31,"f":"Services and other","t":"Police identification and records officers","x":0.16},{"a":0.4,"f":"Arts, sports and media","t":"Broadcast technicians","x":0.16},{"a":0.32,"f":"Production, construction and transportation","t":"Bakers","x":0.16},{"a":0.42,"f":"Arts, sports and media","t":"Graphic designers","x":0.16},{"a":0.34,"f":"Production, construction and transportation","t":"Computer numerically controlled tool operators","x":0.16},{"a":0.31,"f":"Production, construction and transportation","t":"Captains, mates, and pilots of water vessels","x":0.16},{"a":0.32,"f":"Health care","t":"Phlebotomists","x":0.16},{"a":0.27,"f":"Production, construction and transportation","t":"Rail yard engineers, dinkey operators, and hostlers","x":0.16},{"a":0.27,"f":"Health care","t":"Physical therapist aides","x":0.16},{"a":0.39,"f":"Arts, sports and media","t":"Floral designers","x":0.16},{"a":0.36,"f":"Health care","t":"Cytotechnologists","x":0.16},{"a":0.38,"f":"Arts, sports and media","t":"Camera operators, television, video, and film","x":0.16},{"a":0.38,"f":"Production, construction and transportation","t":"Gas plant operators","x":0.16},{"a":0.37,"f":"Production, construction and transportation","t":"Power plant operators","x":0.15},{"a":0.36,"f":"Services and other","t":"Security and fire alarm systems installers","x":0.15},{"a":0.43,"f":"Arts, sports and media","t":"Special effects artists and animators","x":0.15},{"a":0.32,"f":"Educational instruction","t":"Preschool teachers, except special education","x":0.15},{"a":0.29,"f":"Production, construction and transportation","t":"Textile bleaching and dyeing machine operators and tenders","x":0.15},{"a":0.29,"f":"Services and other","t":"Maintenance workers, machinery","x":0.15},{"a":0.29,"f":"Production, construction and transportation","t":"Furnace, kiln, oven, drier, and kettle operators and tenders","x":0.15},{"a":0.33,"f":"Sales","t":"Cashiers","x":0.15},{"a":0.35,"f":"Services and other","t":"Avionics technicians","x":0.15},{"a":0.29,"f":"Production, construction and transportation","t":"Conveyor operators and tenders","x":0.15},{"a":0.35,"f":"Services and other","t":"Pest control workers","x":0.15},{"a":0.39,"f":"Engineering","t":"Photonics technicians","x":0.15},{"a":0.3,"f":"Health care","t":"Veterinary technologists and technicians","x":0.15},{"a":0.36,"f":"Health care","t":"Paramedics","x":0.15},{"a":0.29,"f":"Services and other","t":"Transportation security screeners","x":0.14},{"a":0.3,"f":"Production, construction and transportation","t":"Jewelers and precious stone and metal workers","x":0.14},{"a":0.27,"f":"Production, construction and transportation","t":"Food batchmakers","x":0.14},{"a":0.48,"f":"Engineering","t":"Architectural and civil drafters","x":0.14},{"a":0.24,"f":"Production, construction and transportation","t":"Crushing, grinding, and polishing machine setters, operators, and tenders","x":0.14},{"a":0.24,"f":"Services and other","t":"Firefighters","x":0.14},{"a":0.3,"f":"Production, construction and transportation","t":"Cabinetmakers and bench carpenters","x":0.14},{"a":0.24,"f":"Services and other","t":"Security guards","x":0.14},{"a":0.24,"f":"Services and other","t":"Hairdressers, hairstylists, and cosmetologists","x":0.14},{"a":0.24,"f":"Production, construction and transportation","t":"Locomotive engineers","x":0.14},{"a":0.33,"f":"Production, construction and transportation","t":"Earth drillers, except oil and gas","x":0.14},{"a":0.29,"f":"Production, construction and transportation","t":"Carpenters","x":0.14},{"a":0.31,"f":"Production, construction and transportation","t":"Patternmakers, wood","x":0.14},{"a":0.24,"f":"Health care","t":"Physical therapist assistants","x":0.14},{"a":0.27,"f":"Production, construction and transportation","t":"Rolling machine setters, operators, and tenders, metal and plastic","x":0.13},{"a":0.23,"f":"Production, construction and transportation","t":"Water and wastewater treatment plant and system operators","x":0.13},{"a":0.23,"f":"Production, construction and transportation","t":"Textile winding, twisting, and drawing out machine setters, operators, and tenders","x":0.13},{"a":0.23,"f":"Production, construction and transportation","t":"Light truck drivers","x":0.13},{"a":0.23,"f":"Production, construction and transportation","t":"Semiconductor processing technicians","x":0.13},{"a":0.23,"f":"Services and other","t":"Nannies","x":0.13},{"a":0.39,"f":"Business and finance","t":"Farm labor contractors","x":0.13},{"a":0.39,"f":"Production, construction and transportation","t":"Construction and building inspectors","x":0.13},{"a":0.38,"f":"Production, construction and transportation","t":"Fabric and apparel patternmakers","x":0.13},{"a":0.29,"f":"Services and other","t":"Gambling and sports book writers and runners","x":0.13},{"a":0.29,"f":"Health care","t":"Licensed practical and licensed vocational nurses","x":0.13},{"a":0.3,"f":"Services and other","t":"Bartenders","x":0.13},{"a":0.31,"f":"Arts, sports and media","t":"Craft artists","x":0.13},{"a":0.31,"f":"Health care","t":"Dental hygienists","x":0.13},{"a":0.31,"f":"Services and other","t":"Electrical and electronics installers and repairers, transportation equipment","x":0.13},{"a":0.32,"f":"Production, construction and transportation","t":"Milling and planing machine setters, operators, and tenders, metal and plastic","x":0.13},{"a":0.36,"f":"Arts, sports and media","t":"Athletes and sports competitors","x":0.12},{"a":0.31,"f":"Life, physical, and social science","t":"Forensic science technicians","x":0.12},{"a":0.2,"f":"Production, construction and transportation","t":"Flight attendants","x":0.12},{"a":0.37,"f":"Production, construction and transportation","t":"Insulation workers, mechanical","x":0.12},{"a":0.26,"f":"Production, construction and transportation","t":"Passenger attendants","x":0.12},{"a":0.4,"f":"Arts, sports and media","t":"Fine artists, including painters, sculptors, and illustrators","x":0.12},{"a":0.26,"f":"Health care","t":"Endoscopy technicians","x":0.12},{"a":0.3,"f":"Health care","t":"Histotechnologists","x":0.12},{"a":0.42,"f":"Arts, sports and media","t":"Fashion designers","x":0.12},{"a":0.3,"f":"Services and other","t":"Cooks, restaurant","x":0.12},{"a":0.37,"f":"Arts, sports and media","t":"Merchandise displayers and window trimmers","x":0.12},{"a":0.3,"f":"Production, construction and transportation","t":"Model makers, metal and plastic","x":0.12},{"a":0.24,"f":"Office support","t":"Mail clerks and mail machine operators, except postal service","x":0.12},{"a":0.43,"f":"Arts, sports and media","t":"Art directors","x":0.12},{"a":0.29,"f":"Production, construction and transportation","t":"Welding, soldering, and brazing machine setters, operators, and tenders","x":0.12},{"a":0.27,"f":"Services and other","t":"Electronic equipment installers and repairers, motor vehicles","x":0.12},{"a":0.33,"f":"Services and other","t":"Maintenance and repair workers, general","x":0.12},{"a":0.25,"f":"Production, construction and transportation","t":"Hydroelectric plant technicians","x":0.12},{"a":0.29,"f":"Office support","t":"Postal service mail sorters, processors, and processing machine operators","x":0.12},{"a":0.32,"f":"Services and other","t":"Embalmers","x":0.12},{"a":0.25,"f":"Services and other","t":"Baristas","x":0.11},{"a":0.35,"f":"Production, construction and transportation","t":"Prepress technicians and workers","x":0.11},{"a":0.23,"f":"Production, construction and transportation","t":"Septic tank servicers and sewer pipe cleaners","x":0.11},{"a":0.28,"f":"Services and other","t":"Skincare specialists","x":0.11},{"a":0.34,"f":"Arts, sports and media","t":"Choreographers","x":0.11},{"a":0.24,"f":"Production, construction and transportation","t":"Operating engineers and other construction equipment operators","x":0.11},{"a":0.36,"f":"Services and other","t":"Camera and photographic equipment repairers","x":0.11},{"a":0.25,"f":"Services and other","t":"Outdoor power equipment and other small engine mechanics","x":0.11},{"a":0.23,"f":"Production, construction and transportation","t":"Multiple machine tool setters, operators, and tenders, metal and plastic","x":0.11},{"a":0.26,"f":"Production, construction and transportation","t":"Pump operators, except wellhead pumpers","x":0.11},{"a":0.24,"f":"Services and other","t":"Gambling dealers","x":0.11},{"a":0.22,"f":"Services and other","t":"Fast food and counter workers","x":0.11},{"a":0.28,"f":"Production, construction and transportation","t":"Painters, construction and maintenance","x":0.11},{"a":0.26,"f":"Production, construction and transportation","t":"Biomass plant technicians","x":0.11},{"a":0.42,"f":"Arts, sports and media","t":"Photographers","x":0.11},{"a":0.19,"f":"Production, construction and transportation","t":"Mixing and blending machine setters, operators, and tenders","x":0.11},{"a":0.2,"f":"Production, construction and transportation","t":"Laborers and freight, stock, and material movers, hand","x":0.11},{"a":0.2,"f":"Services and other","t":"School bus monitors","x":0.11},{"a":0.19,"f":"Production, construction and transportation","t":"Extruding, forming, pressing, and compacting machine setters, operators, and tenders","x":0.11},{"a":0.19,"f":"Health care","t":"Ophthalmic medical technicians","x":0.11},{"a":0.33,"f":"Production, construction and transportation","t":"Elevator and escalator installers and repairers","x":0.1},{"a":0.25,"f":"Production, construction and transportation","t":"Model makers, wood","x":0.1},{"a":0.33,"f":"Production, construction and transportation","t":"Biofuels processing technicians","x":0.1},{"a":0.23,"f":"Health care","t":"Ophthalmic medical technologists","x":0.1},{"a":0.26,"f":"Production, construction and transportation","t":"Glass blowers, molders, benders, and finishers","x":0.1},{"a":0.2,"f":"Health care","t":"Nursing assistants","x":0.1},{"a":0.21,"f":"Production, construction and transportation","t":"Print binding and finishing workers","x":0.1},{"a":0.32,"f":"Health care","t":"Medical and clinical laboratory technicians","x":0.1},{"a":0.18,"f":"Production, construction and transportation","t":"Loading and moving machine operators, underground mining","x":0.1},{"a":0.23,"f":"Production, construction and transportation","t":"Excavating and loading machine and dragline operators, surface mining","x":0.1},{"a":0.18,"f":"Production, construction and transportation","t":"Food and tobacco roasting, baking, and drying machine operators and tenders","x":0.1},{"a":0.18,"f":"Services and other","t":"Heating, air conditioning, and refrigeration mechanics and installers","x":0.1},{"a":0.25,"f":"Arts, sports and media","t":"Film and video editors","x":0.1},{"a":0.23,"f":"Services and other","t":"Control and valve installers and repairers, except mechanical door","x":0.1},{"a":0.23,"f":"Arts, sports and media","t":"Sound engineering technicians","x":0.1},{"a":0.22,"f":"Services and other","t":"Lifeguards, ski patrol, and other recreational protective service workers","x":0.1},{"a":0.18,"f":"Production, construction and transportation","t":"Rotary drill operators, oil and gas","x":0.1},{"a":0.17,"f":"Production, construction and transportation","t":"Ambulance drivers and attendants, except emergency medical technicians","x":0.1},{"a":0.32,"f":"Services and other","t":"Mobile heavy equipment mechanics, except engines","x":0.1},{"a":0.24,"f":"Production, construction and transportation","t":"Hazardous materials removal workers","x":0.09},{"a":0.29,"f":"Production, construction and transportation","t":"Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic","x":0.09},{"a":0.22,"f":"Production, construction and transportation","t":"Heat treating equipment setters, operators, and tenders, metal and plastic","x":0.09},{"a":0.24,"f":"Production, construction and transportation","t":"Upholsterers","x":0.09},{"a":0.29,"f":"Health care","t":"Anesthesiologist assistants","x":0.09},{"a":0.16,"f":"Production, construction and transportation","t":"Packers and packagers, hand","x":0.09},{"a":0.16,"f":"Production, construction and transportation","t":"Cleaning, washing, and metal pickling equipment operators and tenders","x":0.09},{"a":0.22,"f":"Production, construction and transportation","t":"Extruding and drawing machine setters, operators, and tenders, metal and plastic","x":0.09},{"a":0.17,"f":"Production, construction and transportation","t":"Separating, filtering, clarifying, precipitating, and still machine setters, operators, and tenders","x":0.09},{"a":0.22,"f":"Services and other","t":"Recreational vehicle service technicians","x":0.09},{"a":0.27,"f":"Arts, sports and media","t":"Media technical directors/managers","x":0.08},{"a":0.26,"f":"Production, construction and transportation","t":"Crane and tower operators","x":0.08},{"a":0.19,"f":"Production, construction and transportation","t":"Service unit operators, oil and gas","x":0.08},{"a":0.15,"f":"Production, construction and transportation","t":"Forging machine setters, operators, and tenders, metal and plastic","x":0.08},{"a":0.14,"f":"Services and other","t":"Maids and housekeeping cleaners","x":0.08},{"a":0.2,"f":"Health care","t":"Surgical technologists","x":0.08},{"a":0.22,"f":"Services and other","t":"Ushers, lobby attendants, and ticket takers","x":0.08},{"a":0.18,"f":"Services and other","t":"Animal trainers","x":0.08},{"a":0.21,"f":"Production, construction and transportation","t":"Photographic process workers and processing machine operators","x":0.08},{"a":0.31,"f":"Services and other","t":"Makeup artists, theatrical and performance","x":0.08},{"a":0.15,"f":"Production, construction and transportation","t":"Machine feeders and offbearers","x":0.08},{"a":0.15,"f":"Services and other","t":"Motorboat mechanics and service technicians","x":0.08},{"a":0.19,"f":"Services and other","t":"Aircraft mechanics and service technicians","x":0.08},{"a":0.19,"f":"Services and other","t":"Telecommunications line installers and repairers","x":0.08},{"a":0.14,"f":"Services and other","t":"Locksmiths and safe repairers","x":0.08},{"a":0.47,"f":"Engineering","t":"Mechanical drafters","x":0.07},{"a":0.17,"f":"Production, construction and transportation","t":"Furniture finishers","x":0.07},{"a":0.17,"f":"Production, construction and transportation","t":"Explosives workers, ordnance handling experts, and blasters","x":0.07},{"a":0.12,"f":"Production, construction and transportation","t":"Derrick operators, oil and gas","x":0.07},{"a":0.17,"f":"Services and other","t":"Radio, cellular, and tower equipment installers and repairers","x":0.07},{"a":0.18,"f":"Production, construction and transportation","t":"Plumbers, pipefitters, and steamfitters","x":0.07},{"a":0.16,"f":"Services and other","t":"Janitors and cleaners, except maids and housekeeping cleaners","x":0.07},{"a":0.16,"f":"Production, construction and transportation","t":"Tailors, dressmakers, and custom sewers","x":0.07},{"a":0.16,"f":"Services and other","t":"Mechanical door repairers","x":0.07},{"a":0.13,"f":"Services and other","t":"Food servers, nonrestaurant","x":0.07},{"a":0.13,"f":"Services and other","t":"Crossing guards and flaggers","x":0.07},{"a":0.13,"f":"Production, construction and transportation","t":"Metal-refining furnace operators and tenders","x":0.07},{"a":0.15,"f":"Services and other","t":"Electric motor, power tool, and related repairers","x":0.07},{"a":0.13,"f":"Production, construction and transportation","t":"Medical appliance technicians","x":0.07},{"a":0.13,"f":"Services and other","t":"Signal and track switch repairers","x":0.07},{"a":0.13,"f":"Services and other","t":"Landscaping and groundskeeping workers","x":0.07},{"a":0.14,"f":"Production, construction and transportation","t":"Construction laborers","x":0.07},{"a":0.11,"f":"Production, construction and transportation","t":"Cooling and freezing equipment operators and tenders","x":0.06},{"a":0.11,"f":"Production, construction and transportation","t":"Plating machine setters, operators, and tenders, metal and plastic","x":0.06},{"a":0.11,"f":"Services and other","t":"Rail car repairers","x":0.06},{"a":0.11,"f":"Production, construction and transportation","t":"Shoe machine operators and tenders","x":0.06},{"a":0.1,"f":"Production, construction and transportation","t":"Aircraft service attendants","x":0.06},{"a":0.11,"f":"Production, construction and transportation","t":"Railroad brake, signal, and switch operators and locomotive firers","x":0.06},{"a":0.11,"f":"Production, construction and transportation","t":"Adhesive bonding machine operators and tenders","x":0.06},{"a":0.14,"f":"Production, construction and transportation","t":"Cutting and slicing machine setters, operators, and tenders","x":0.06},{"a":0.14,"f":"Production, construction and transportation","t":"Sewing machine operators","x":0.06},{"a":0.15,"f":"Services and other","t":"Tree trimmers and pruners","x":0.06},{"a":0.16,"f":"Production, construction and transportation","t":"Electricians","x":0.06},{"a":0.14,"f":"Production, construction and transportation","t":"Sailors and marine oilers","x":0.05},{"a":0.09,"f":"Production, construction and transportation","t":"Cleaners of vehicles and equipment","x":0.05},{"a":0.09,"f":"Production, construction and transportation","t":"Extruding and forming machine setters, operators, and tenders, synthetic and glass fibers","x":0.05},{"a":0.09,"f":"Production, construction and transportation","t":"Grinding and polishing workers, hand","x":0.05},{"a":0.19,"f":"Production, construction and transportation","t":"Parking attendants","x":0.05},{"a":0.1,"f":"Production, construction and transportation","t":"Tank car, truck, and ship loaders","x":0.05},{"a":0.17,"f":"Production, construction and transportation","t":"Gem and diamond workers","x":0.05},{"a":0.1,"f":"Production, construction and transportation","t":"Recycling and reclamation workers","x":0.05},{"a":0.17,"f":"Production, construction and transportation","t":"Engine and other machine assemblers","x":0.05},{"a":0.17,"f":"Production, construction and transportation","t":"Sheet metal workers","x":0.05},{"a":0.17,"f":"Production, construction and transportation","t":"Molding, coremaking, and casting machine setters, operators, and tenders, metal and plastic","x":0.05},{"a":0.18,"f":"Services and other","t":"Cooks, fast food","x":0.05},{"a":0.19,"f":"Services and other","t":"Pesticide handlers, sprayers, and applicators, vegetation","x":0.05},{"a":0.17,"f":"Production, construction and transportation","t":"Insulation workers, floor, ceiling, and wall","x":0.05},{"a":0.14,"f":"Production, construction and transportation","t":"Woodworking machine setters, operators, and tenders, except sawing","x":0.04},{"a":0.08,"f":"Services and other","t":"Automotive body and related repairers","x":0.04},{"a":0.07,"f":"Production, construction and transportation","t":"Coating, painting, and spraying machine setters, operators, and tenders","x":0.04},{"a":0.16,"f":"Production, construction and transportation","t":"Potters, manufacturing","x":0.04},{"a":0.14,"f":"Production, construction and transportation","t":"Brickmasons and blockmasons","x":0.04},{"a":0.15,"f":"Health care","t":"Oral and maxillofacial surgeons","x":0.04},{"a":0.15,"f":"Health care","t":"Hearing aid specialists","x":0.04},{"a":0.15,"f":"Production, construction and transportation","t":"Patternmakers, metal and plastic","x":0.04},{"a":0.08,"f":"Production, construction and transportation","t":"Helpers--electricians","x":0.04},{"a":0.14,"f":"Production, construction and transportation","t":"Welders, cutters, solderers, and brazers","x":0.04},{"a":0.08,"f":"Services and other","t":"Motion picture projectionists","x":0.04},{"a":0.14,"f":"Services and other","t":"Automotive service technicians and mechanics","x":0.04},{"a":0.25,"f":"Production, construction and transportation","t":"Layout workers, metal and plastic","x":0.04},{"a":0.13,"f":"Services and other","t":"Manufactured building and mobile home installers","x":0.04},{"a":0.11,"f":"Arts, sports and media","t":"Dancers","x":0.03},{"a":0.11,"f":"Production, construction and transportation","t":"Continuous mining machine operators","x":0.03},{"a":0.22,"f":"Production, construction and transportation","t":"Lathe and turning machine tool setters, operators, and tenders, metal and plastic","x":0.03},{"a":0.11,"f":"Production, construction and transportation","t":"Motorboat operators","x":0.03},{"a":0.06,"f":"Production, construction and transportation","t":"Helpers--production workers","x":0.03},{"a":0.1,"f":"Production, construction and transportation","t":"Timing device assemblers and adjusters","x":0.03},{"a":0.11,"f":"Production, construction and transportation","t":"Tool and die makers","x":0.03},{"a":0.11,"f":"Production, construction and transportation","t":"Cutters and trimmers, hand","x":0.03},{"a":0.12,"f":"Production, construction and transportation","t":"Drilling and boring machine tool setters, operators, and tenders, metal and plastic","x":0.03},{"a":0.13,"f":"Services and other","t":"Bicycle repairers","x":0.03},{"a":0.13,"f":"Production, construction and transportation","t":"Plasterers and stucco masons","x":0.03},{"a":0.11,"f":"Production, construction and transportation","t":"Tool grinders, filers, and sharpeners","x":0.03},{"a":0.11,"f":"Services and other","t":"Helpers--installation, maintenance, and repair workers","x":0.03},{"a":0.12,"f":"Production, construction and transportation","t":"Tapers","x":0.03},{"a":0.07,"f":"Services and other","t":"Food preparation workers","x":0.03},{"a":0.09,"f":"Production, construction and transportation","t":"Solar thermal installers and technicians","x":0.02},{"a":0.09,"f":"Services and other","t":"Electrical power-line installers and repairers","x":0.02},{"a":0.07,"f":"Production, construction and transportation","t":"Shoe and leather workers and repairers","x":0.02},{"a":0.07,"f":"Services and other","t":"Bus and truck mechanics and diesel engine specialists","x":0.02},{"a":0.07,"f":"Services and other","t":"Tire repairers and changers","x":0.02},{"a":0.07,"f":"Production, construction and transportation","t":"Roofers","x":0.02},{"a":0.08,"f":"Production, construction and transportation","t":"Tile and stone setters","x":0.02},{"a":0.08,"f":"Services and other","t":"Commercial divers","x":0.02},{"a":0.08,"f":"Production, construction and transportation","t":"Glaziers","x":0.02},{"a":0.08,"f":"Production, construction and transportation","t":"Drywall and ceiling tile installers","x":0.02},{"a":0.08,"f":"Production, construction and transportation","t":"Sawing machine setters, operators, and tenders, wood","x":0.02},{"a":0.09,"f":"Production, construction and transportation","t":"Fence erectors","x":0.02},{"a":0.07,"f":"Production, construction and transportation","t":"Cutting, punching, and press machine setters, operators, and tenders, metal and plastic","x":0.02},{"a":0.06,"f":"Production, construction and transportation","t":"Laundry and dry-cleaning workers","x":0.02},{"a":0.07,"f":"Health care","t":"Surgical assistants","x":0.02},{"a":0.0,"f":"Production, construction and transportation","t":"Floor sanders and finishers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Carpet installers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Floor layers, except carpet, wood, and hard tiles","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Structural metal fabricators and fitters","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Pipelayers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Slaughterers and meat packers","x":0.0},{"a":0.0,"f":"Services and other","t":"Dining room and cafeteria attendants and bartender helpers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Dredge operators","x":0.0},{"a":0.0,"f":"Health care","t":"Histology technicians","x":0.0},{"a":0.0,"f":"Services and other","t":"Millwrights","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Pourers and casters, metal","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Packaging and filling machine operators and tenders","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Meat, poultry, and fish cutters and trimmers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Etchers and engravers","x":0.0},{"a":0.0,"f":"Health care","t":"Orderlies","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Terrazzo workers and finishers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Cement masons and concrete finishers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Dental laboratory technicians","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Wellhead pumpers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Paving, surfacing, and tamping equipment operators","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--brickmasons, blockmasons, stonemasons, and tile and marble setters","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Rail-track laying and maintenance equipment operators","x":0.0},{"a":0.0,"f":"Health care","t":"Prosthodontists","x":0.0},{"a":0.0,"f":"Services and other","t":"Motorcycle mechanics","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Painting, coating, and decorating workers","x":0.0},{"a":0.0,"f":"Arts, sports and media","t":"Lighting technicians","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Stone cutters and carvers, manufacturing","x":0.0},{"a":0.0,"f":"Services and other","t":"Musical instrument repairers and tuners","x":0.0},{"a":0.0,"f":"Services and other","t":"Refractory materials repairers, except brickmasons","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Reinforcing iron and rebar workers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Pressers, textile, garment, and related materials","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Electromechanical equipment assemblers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--extraction workers","x":0.0},{"a":0.11,"f":"Production, construction and transportation","t":"Structural iron and steel workers","x":0.0},{"a":0.07,"f":"Production, construction and transportation","t":"Aircraft structure, surfaces, rigging, and systems assemblers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Segmental pavers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Molders, shapers, and casters, except metal and plastic","x":0.0},{"a":0.0,"f":"Services and other","t":"Automotive glass installers and repairers","x":0.0},{"a":0.0,"f":"Services and other","t":"Dishwashers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Ophthalmic laboratory technicians","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Fiberglass laminators and fabricators","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Hoist and winch operators","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Paperhangers","x":0.0},{"a":0.0,"f":"Services and other","t":"Cooks, short order","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Pile driver operators","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Foundry mold and coremakers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Industrial truck and tractor operators","x":0.0},{"a":0.0,"f":"Services and other","t":"Riggers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Boilermakers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Stonemasons","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Tire builders","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--carpenters","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--painters, paperhangers, plasterers, and stucco masons","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Sewers, hand","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--pipelayers, plumbers, pipefitters, and steamfitters","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Helpers--roofers","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Paper goods machine setters, operators, and tenders","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Roof bolters, mining","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Rock splitters, quarry","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Roustabouts, oil and gas","x":0.0},{"a":0.0,"f":"Production, construction and transportation","t":"Highway maintenance workers","x":0.0}];
+
+const FAMILIES = [...new Set(DATA.map(d => d.f))].sort();
+const COLORS = {
+  'Office support': '#ff6b6b',
+  'Arts, sports and media': '#f0a500',
+  'Health care': '#30d158',
+  'Sales': '#ff9f43',
+  'Life, physical, and social science': '#00d2d3',
+  'Computer and math': '#64d2ff',
+  'Business and finance': '#bf5af2',
+  'Educational instruction': '#5e60ce',
+  'Engineering': '#48bfe3',
+  'Services and other': '#8d99ae',
+  'Management': '#ff006e',
+  'Legal': '#ffd60a',
+  'Production, construction and transportation': '#7b8794'
+};
+
+const PAD = { top: 40, right: 40, bottom: 50, left: 55 };
+const activeFilters = new Set(FAMILIES);
+let searchTerm = '';
+let hoveredPoint = null;
+let selectedPoint = null;
+let animProgress = 0;
+let animStart = null;
+let dropdownIndex = -1;
+
+const plotCanvas = document.getElementById('plotCanvas');
+const overlayCanvas = document.getElementById('overlayCanvas');
+const hitCanvas = document.getElementById('hitCanvas');
+const plotCtx = plotCanvas.getContext('2d');
+const overCtx = overlayCanvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+const wrap = document.getElementById('canvasWrap');
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = wrap.getBoundingClientRect();
+  [plotCanvas, overlayCanvas, hitCanvas].forEach(c => {
+    c.width = rect.width * dpr;
+    c.height = rect.height * dpr;
+    c.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
+  });
+  drawPlot();
+  drawOverlay();
+}
+
+function xScale(v, w) {
+  // INVERTED: high automation on left, low on right
+  return PAD.left + (v) * (w - PAD.left - PAD.right);
+}
+function yScale(v, h) {
+  return h - PAD.bottom - v * (h - PAD.top - PAD.bottom);
+}
+function dataToX(automation, w) {
+  // Invert: 0.86 -> left, 0 -> right
+  const maxAuto = 0.9, minAuto = 0;
+  const norm = 1 - (automation - minAuto) / (maxAuto - minAuto);
+  return PAD.left + norm * (w - PAD.left - PAD.right);
+}
+function dataToY(augmentation, h) {
+  const maxAug = 0.52, minAug = 0;
+  const norm = (augmentation - minAug) / (maxAug - minAug);
+  return h - PAD.bottom - norm * (h - PAD.top - PAD.bottom);
+}
+
+function getVisible() {
+  return DATA.filter(d => activeFilters.has(d.f));
+}
+
+function drawPlot() {
+  const rect = wrap.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const ctx = plotCtx;
+  ctx.clearRect(0, 0, w, h);
+
+  // Quadrant backgrounds
+  const midX = dataToX(0.35, w);
+  const midY = dataToY(0.25, h);
+
+  // UR: low auto, high aug
+  ctx.fillStyle = 'rgba(48,209,88,.03)';
+  ctx.fillRect(midX, PAD.top, w - PAD.right - midX, midY - PAD.top);
+  // UL: high auto, high aug (Transforming - top left because axis inverted)
+  ctx.fillStyle = 'rgba(191,90,242,.025)';
+  ctx.fillRect(PAD.left, PAD.top, midX - PAD.left, midY - PAD.top);
+  // BL: high auto, low aug (High Risk)
+  ctx.fillStyle = 'rgba(255,100,130,.03)';
+  ctx.fillRect(PAD.left, midY, midX - PAD.left, h - PAD.bottom - midY);
+  // BR: low auto, low aug (Resilient)
+  ctx.fillStyle = 'rgba(100,210,255,.02)';
+  ctx.fillRect(midX, midY, w - PAD.right - midX, h - PAD.bottom - midY);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,.04)';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 9; i++) {
+    const x = dataToX(i * 0.1, w);
+    const y = dataToY(i * 0.06, h);
+    ctx.beginPath(); ctx.moveTo(x, PAD.top); ctx.lineTo(x, h - PAD.bottom); ctx.stroke();
+    if (i <= 8) { ctx.beginPath(); ctx.moveTo(PAD.left, dataToY(i * 0.065, h)); ctx.lineTo(w - PAD.right, dataToY(i * 0.065, h)); ctx.stroke(); }
+  }
+
+  // Quadrant dividers
+  ctx.strokeStyle = 'rgba(255,255,255,.12)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([6, 4]);
+  ctx.beginPath(); ctx.moveTo(midX, PAD.top); ctx.lineTo(midX, h - PAD.bottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(PAD.left, midY); ctx.lineTo(w - PAD.right, midY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Axis ticks & labels
+  ctx.fillStyle = 'rgba(255,255,255,.25)';
+  ctx.font = '500 10px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center';
+  for (let v = 0; v <= 0.9; v += 0.1) {
+    const x = dataToX(v, w);
+    ctx.fillText(v.toFixed(1), x, h - PAD.bottom + 16);
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgba(255,255,255,.12)';
+    ctx.lineWidth = 1;
+    ctx.moveTo(x, h - PAD.bottom);
+    ctx.lineTo(x, h - PAD.bottom + 4);
+    ctx.stroke();
+  }
+  ctx.textAlign = 'right';
+  for (let v = 0; v <= 0.5; v += 0.1) {
+    const y = dataToY(v, h);
+    ctx.fillText(v.toFixed(1), PAD.left - 8, y + 3.5);
+  }
+
+  // Plot points
+  const visible = getVisible();
+  const hasSelection = !!selectedPoint;
+
+  visible.forEach(d => {
+    const x = dataToX(d.x, w);
+    const y = dataToY(d.a, h);
+    const col = COLORS[d.f] || '#888';
+    const isSelected = hasSelection && d.t === selectedPoint.t && d.f === selectedPoint.f;
+    const alpha = hasSelection ? (isSelected ? 1 : 0.08) : 0.65;
+    const radius = hasSelection ? (isSelected ? 6 : 2.5) : 3.2;
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius * animProgress, 0, Math.PI * 2);
+    ctx.fillStyle = hexAlpha(col, alpha);
+    ctx.fill();
+  });
+
+  document.getElementById('statVisible').textContent = visible.length;
+
+  // Quadrant stat
+  const vis = getVisible();
+  const ur = vis.filter(d => d.x <= 0.35 && d.a >= 0.25).length;
+  const bl = vis.filter(d => d.x > 0.35 && d.a < 0.25).length;
+  const tl = vis.filter(d => d.x > 0.35 && d.a >= 0.25).length;
+  const br = vis.filter(d => d.x <= 0.35 && d.a < 0.25).length;
+  document.getElementById('statQuadrant').textContent =
+    `High Reward: ${ur} \u00B7 Transforming: ${tl} \u00B7 High Risk: ${bl} \u00B7 Resilient: ${br}`;
+}
+
+function drawOverlay() {
+  const rect = wrap.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const ctx = overCtx;
+  ctx.clearRect(0, 0, w, h);
+
+  // Draw selected point highlight + label
+  if (selectedPoint) {
+    const d = selectedPoint;
+    const x = dataToX(d.x, w);
+    const y = dataToY(d.a, h);
+    const col = COLORS[d.f] || '#888';
+
+    // Crosshairs
+    ctx.strokeStyle = hexAlpha(col, 0.2);
+    ctx.lineWidth = 0.5;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(x, PAD.top); ctx.lineTo(x, h - PAD.bottom); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(w - PAD.right, y); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Glow
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, 28);
+    grad.addColorStop(0, hexAlpha(col, 0.4));
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x - 35, y - 35, 70, 70);
+
+    // Outer ring
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+    ctx.strokeStyle = hexAlpha(col, 0.4);
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Inner ring
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, Math.PI * 2);
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Center
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    // Label above point
+    const label = d.t;
+    ctx.font = '500 12px "DM Sans", sans-serif';
+    const tw = ctx.measureText(label).width;
+    const lx = x, ly = y - 18;
+    const padH = 8, padV = 5, r = 5;
+    const boxW = tw + padH * 2, boxH = 20 + padV;
+    let bx = lx - boxW / 2, by = ly - boxH;
+    // Keep in bounds
+    if (bx < PAD.left) bx = PAD.left;
+    if (bx + boxW > w - PAD.right) bx = w - PAD.right - boxW;
+    if (by < PAD.top) { by = y + 16; } // flip below if too high
+
+    // Box background
+    ctx.fillStyle = 'rgba(17,18,26,.92)';
+    ctx.beginPath();
+    ctx.roundRect(bx, by, boxW, boxH, r);
+    ctx.fill();
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Arrow
+    const arrowY = by + boxH;
+    if (by < y) { // label above
+      ctx.fillStyle = 'rgba(17,18,26,.92)';
+      ctx.beginPath();
+      ctx.moveTo(x - 5, arrowY);
+      ctx.lineTo(x, arrowY + 5);
+      ctx.lineTo(x + 5, arrowY);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x - 5, arrowY);
+      ctx.lineTo(x, arrowY + 5);
+      ctx.lineTo(x + 5, arrowY);
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Label text
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, bx + padH, by + boxH / 2);
+
+    // Score sub-label
+    ctx.font = '400 10px "JetBrains Mono", monospace';
+    const scoreText = `Auto: ${d.x.toFixed(2)}  Aug: ${d.a.toFixed(2)}`;
+    const stw = ctx.measureText(scoreText).width;
+    const sbx = lx - (stw + 16) / 2;
+    const sby = by < y ? arrowY + 7 : by - 18;
+    // Don't draw score sublabel to keep it clean
+  }
+
+  // Draw hovered point (if different from selected)
+  if (hoveredPoint && (!selectedPoint || hoveredPoint.t !== selectedPoint.t)) {
+    const d = hoveredPoint;
+    const x = dataToX(d.x, w);
+    const y = dataToY(d.a, h);
+    const col = COLORS[d.f] || '#888';
+
+    const grad = ctx.createRadialGradient(x, y, 0, x, y, 20);
+    grad.addColorStop(0, hexAlpha(col, 0.3));
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x - 25, y - 25, 50, 50);
+
+    ctx.beginPath();
+    ctx.arc(x, y, 7, 0, Math.PI * 2);
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+
+    if (!selectedPoint) {
+      ctx.strokeStyle = hexAlpha(col, 0.15);
+      ctx.lineWidth = 0.5;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath(); ctx.moveTo(x, PAD.top); ctx.lineTo(x, h - PAD.bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(w - PAD.right, y); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+}
+
+function hexAlpha(hex, a) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+// Hit detection
+hitCanvas.addEventListener('mousemove', e => {
+  const rect = wrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  const w = rect.width, h = rect.height;
+
+  let closest = null, minDist = 16;
+  const visible = getVisible();
+  visible.forEach(d => {
+    const x = dataToX(d.x, w);
+    const y = dataToY(d.a, h);
+    const dist = Math.hypot(x - mx, y - my);
+    if (dist < minDist) { minDist = dist; closest = d; }
+  });
+
+  if (closest !== hoveredPoint) {
+    hoveredPoint = closest;
+    drawOverlay();
+  }
+
+  if (closest) {
+    const ttEl = tooltip;
+    ttEl.querySelector('.tt-title').textContent = closest.t;
+    ttEl.querySelector('.tt-family .dot').style.background = COLORS[closest.f];
+    ttEl.querySelector('.tt-family .name').textContent = closest.f;
+    ttEl.querySelector('.tt-score.auto .val').textContent = closest.x.toFixed(2);
+    ttEl.querySelector('.tt-score.aug .val').textContent = closest.a.toFixed(2);
+
+    const ttW = 280, ttH = 130;
+    let tx = e.clientX + 16, ty = e.clientY - 16;
+    if (tx + ttW > window.innerWidth - 20) tx = e.clientX - ttW - 16;
+    if (ty + ttH > window.innerHeight - 20) ty = e.clientY - ttH;
+    if (ty < 10) ty = 10;
+    ttEl.style.left = tx + 'px';
+    ttEl.style.top = ty + 'px';
+    ttEl.classList.add('show');
+    hitCanvas.style.cursor = 'pointer';
+  } else {
+    tooltip.classList.remove('show');
+    hitCanvas.style.cursor = 'crosshair';
+  }
+});
+
+hitCanvas.addEventListener('mouseleave', () => {
+  hoveredPoint = null;
+  tooltip.classList.remove('show');
+  drawOverlay();
+});
+
+hitCanvas.addEventListener('click', e => {
+  if (hoveredPoint) {
+    selectJob(hoveredPoint);
+  } else if (selectedPoint) {
+    clearSelection();
+  }
+});
+
+// Search with dropdown
+const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+
+function getSearchMatches(term) {
+  if (!term || term.length < 2) return [];
+  const t = term.toLowerCase();
+  return DATA.filter(d => activeFilters.has(d.f) && d.t.toLowerCase().includes(t)).slice(0, 12);
+}
+
+function highlightMatch(text, term) {
+  const idx = text.toLowerCase().indexOf(term.toLowerCase());
+  if (idx === -1) return text;
+  return text.slice(0, idx) + '<mark>' + text.slice(idx, idx + term.length) + '</mark>' + text.slice(idx + term.length);
+}
+
+function renderDropdown(matches) {
+  if (matches.length === 0 && searchTerm.length >= 2) {
+    searchDropdown.innerHTML = '<div class="sr-empty">No occupations found</div>';
+    searchDropdown.classList.add('show');
+    return;
+  }
+  if (matches.length === 0) { searchDropdown.classList.remove('show'); return; }
+  searchDropdown.innerHTML = matches.map((d, i) =>
+    `<div class="sr-item${i === dropdownIndex ? ' active' : ''}" data-idx="${i}"><span class="sr-dot" style="background:${COLORS[d.f]}"></span><span>${highlightMatch(d.t, searchTerm)}</span><span class="sr-family">${d.f}</span></div>`
+  ).join('');
+  searchDropdown.classList.add('show');
+  searchDropdown.querySelectorAll('.sr-item').forEach(el => {
+    el.addEventListener('mousedown', e => {
+      e.preventDefault();
+      const idx = parseInt(el.dataset.idx);
+      selectJob(matches[idx]);
+    });
+  });
+}
+
+function selectJob(d) {
+  selectedPoint = d;
+  searchInput.value = d.t;
+  searchTerm = '';
+  searchDropdown.classList.remove('show');
+  searchInput.blur();
+  drawPlot();
+  drawOverlay();
+}
+
+function clearSelection() {
+  selectedPoint = null;
+  searchTerm = '';
+  searchInput.value = '';
+  dropdownIndex = -1;
+  searchDropdown.classList.remove('show');
+  drawPlot();
+  drawOverlay();
+}
+
+searchInput.addEventListener('input', e => {
+  searchTerm = e.target.value;
+  selectedPoint = null;
+  dropdownIndex = -1;
+  const matches = getSearchMatches(searchTerm);
+  renderDropdown(matches);
+  drawPlot();
+  drawOverlay();
+});
+
+searchInput.addEventListener('keydown', e => {
+  const matches = getSearchMatches(searchTerm);
+  if (e.key === 'ArrowDown') { e.preventDefault(); dropdownIndex = Math.min(dropdownIndex + 1, matches.length - 1); renderDropdown(matches); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); dropdownIndex = Math.max(dropdownIndex - 1, 0); renderDropdown(matches); }
+  else if (e.key === 'Enter' && dropdownIndex >= 0 && matches[dropdownIndex]) { e.preventDefault(); selectJob(matches[dropdownIndex]); }
+  else if (e.key === 'Escape') { clearSelection(); }
+});
+
+searchInput.addEventListener('focus', () => {
+  if (selectedPoint) { searchTerm = selectedPoint.t; selectedPoint = null; searchInput.value = searchTerm; }
+  const matches = getSearchMatches(searchTerm);
+  renderDropdown(matches);
+});
+
+searchInput.addEventListener('blur', () => {
+  setTimeout(() => searchDropdown.classList.remove('show'), 150);
+});
+
+// Filter panel
+const filterBtn = document.getElementById('filterBtn');
+const filterPanel = document.getElementById('filterPanel');
+
+function buildFilterPanel() {
+  let html = '';
+  FAMILIES.forEach(f => {
+    const col = COLORS[f] || '#888';
+    html += `<label><input type="checkbox" value="${f}" ${activeFilters.has(f)?'checked':''}><span class="check"></span><span class="dot" style="background:${col}"></span>${f}</label>`;
+  });
+  html += `<div class="actions"><button id="selAll">Select all</button><button id="selNone">Clear all</button></div>`;
+  filterPanel.innerHTML = html;
+
+  filterPanel.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) activeFilters.add(cb.value);
+      else activeFilters.delete(cb.value);
+      updateFilterCount();
+      drawPlot();
+      drawOverlay();
+      buildLegend();
+    });
+  });
+
+  document.getElementById('selAll').addEventListener('click', () => {
+    FAMILIES.forEach(f => activeFilters.add(f));
+    filterPanel.querySelectorAll('input').forEach(i => i.checked = true);
+    updateFilterCount(); drawPlot(); drawOverlay(); buildLegend();
+  });
+  document.getElementById('selNone').addEventListener('click', () => {
+    activeFilters.clear();
+    filterPanel.querySelectorAll('input').forEach(i => i.checked = false);
+    updateFilterCount(); drawPlot(); drawOverlay(); buildLegend();
+  });
+}
+
+function updateFilterCount() {
+  document.getElementById('filterCount').textContent = activeFilters.size;
+}
+
+filterBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  filterPanel.classList.toggle('show');
+  filterBtn.classList.toggle('open');
+});
+document.addEventListener('click', e => {
+  if (!filterPanel.contains(e.target) && e.target !== filterBtn) {
+    filterPanel.classList.remove('show');
+    filterBtn.classList.remove('open');
+  }
+});
+
+// Legend
+function buildLegend() {
+  const wrap = document.getElementById('legendWrap');
+  wrap.innerHTML = '<span class="legend-title">Families</span>';
+  FAMILIES.forEach(f => {
+    const el = document.createElement('div');
+    el.className = 'legend-item' + (activeFilters.has(f) ? '' : ' dim');
+    el.innerHTML = `<span class="dot" style="background:${COLORS[f]}"></span>${f}`;
+    el.addEventListener('click', () => {
+      if (activeFilters.has(f)) activeFilters.delete(f);
+      else activeFilters.add(f);
+      // Sync filter panel checkboxes
+      const cb = filterPanel.querySelector(`input[value="${f}"]`);
+      if (cb) cb.checked = activeFilters.has(f);
+      updateFilterCount();
+      drawPlot(); drawOverlay(); buildLegend();
+    });
+    wrap.appendChild(el);
+  });
+}
+
+// Entrance animation
+function animateIn(ts) {
+  if (!animStart) animStart = ts;
+  const elapsed = ts - animStart;
+  animProgress = Math.min(1, elapsed / 700);
+  // Ease out cubic
+  animProgress = 1 - Math.pow(1 - animProgress, 3);
+  drawPlot();
+  if (animProgress < 1) requestAnimationFrame(animateIn);
+}
+
+// Init
+buildFilterPanel();
+buildLegend();
+window.addEventListener('resize', resize);
+resize();
+requestAnimationFrame(animateIn);
+</script>
+</body>
+</html>
